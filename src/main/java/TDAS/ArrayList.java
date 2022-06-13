@@ -1,5 +1,5 @@
 
-package TDAs;
+package TDAS;
 
 import java.util.Iterator;
 

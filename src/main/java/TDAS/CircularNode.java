@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package collection;
+package TDAS;
 
 import java.util.Objects;
 
 /**
  *
- * @author danny
+ * @author Juan
  * @param <E>
  */
 public class CircularNode<E> {
