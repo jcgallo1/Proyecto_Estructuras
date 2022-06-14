@@ -1,5 +1,6 @@
 package com.mycompany.grupo1estructuras;
 
+import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        
+        
+        
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
         stage.show();
@@ -32,6 +36,16 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        String ruta = "C:\\Picspol";
+        File D = new File(ruta);
+
+        boolean D1 = D.mkdir();
+        if (D1) {
+            System.out.println("Directory is created successfully");
+        } else {
+            System.out.println("Ya existe el album !");
+        }
+        System.out.println(D1);
         launch();
     }
 

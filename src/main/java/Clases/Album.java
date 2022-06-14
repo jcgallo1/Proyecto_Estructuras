@@ -5,8 +5,11 @@
  */
 package Clases;
 
-import Clases.fotos;
+import Clases.Imagen;
+import TDAS.ArrayList;
 import TDAS.CircularLinkedList;
+import java.io.File;
+import java.util.Date;
 
 /**
  *
@@ -14,25 +17,42 @@ import TDAS.CircularLinkedList;
  */
 public class Album {
     String nombre;
-    String direccion;
-    CircularLinkedList<fotos> fotos;
-
-    public Album(String nombre, String direccion) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-    }
+    String descripcion;
+    CircularLinkedList<Imagen> fotos;
     
-    public void importarFoto(){
+    
+    //crea un album localmente en la carpeta picspol en el disco local c;
+    
+    public Album(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fotos=new CircularLinkedList<>();
+        String ruta = "C:\\Picspol\\"+nombre;
+        File D = new File(ruta);
+        boolean D1 = D.mkdir();
+        if (D1) {
+            System.out.println("Directory is created successfully");
+        } else {
+            System.out.println("Error el album ya existe!");
+        }
+        System.out.println(D1);
         
     }
-    public void importarTodasLasFotos(){
     
+    public boolean agregarFotos(File foto,String descripcion, String lugar,Date fecha,ArrayList<Personas> persona,Album nombreAlbum){
+        
+        if(foto==null){
+            return false;
+        }else{
+            this.fotos.add(foto,descripcion, lugar,fecha,persona,nombreAlbum);
+        }
+        
+        
+        Return false;
     }
+
     
-    
-    
-    
-    
+
     
     
     
@@ -70,11 +90,11 @@ public class Album {
         return nombre;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public CircularLinkedList<fotos> getFotos() {
+    public CircularLinkedList<Imagen> getFotos() {
         return fotos;
     }
     
@@ -82,11 +102,11 @@ public class Album {
         this.nombre = nombre;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void setFotos(CircularLinkedList<fotos> fotos) {
+    public void setFotos(CircularLinkedList<Imagen> fotos) {
         this.fotos = fotos;
     }
     
