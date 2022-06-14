@@ -39,16 +39,16 @@ public class Album {
         
     }
     
-    public boolean agregarFotos(File foto,String descripcion, String lugar,Date fecha,ArrayList<Personas> persona,Album nombreAlbum){
-        
-        if(foto==null){
+    public boolean agregarFotos(File foto,String descripcion, String lugar,Date fecha,ArrayList<Personas> persona,
+            Album nombreAlbum) {
+
+        if (foto == null) {
             return false;
-        }else{
-            this.fotos.add(foto,descripcion, lugar,fecha,persona,nombreAlbum);
+        } else {
+            this.fotos.addLast(new Imagen(foto, descripcion, lugar, fecha, persona, nombreAlbum));
         }
+        return false;
         
-        
-        Return false;
     }
 
     
