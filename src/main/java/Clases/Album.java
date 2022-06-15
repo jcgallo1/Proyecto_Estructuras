@@ -9,6 +9,10 @@ import Clases.Imagen;
 import TDAS.ArrayList;
 import TDAS.CircularLinkedList;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Date;
 
 /**
@@ -52,7 +56,27 @@ public class Album {
     }
 
     
+    public static void guardarAlbumRegistro(Album album){
+        FileOutputStream fout = null;
+        try {
+            
+            fout = new FileOutputStream("src/main/resources/Registro"+album.getNombre()+".ser");
+            ObjectOutputStream out = new ObjectOutputStream(fout);
+            out.writeObject(album);
+            out.flush();
 
+        } catch (FileNotFoundException ex) {
+            System.err.println("No se encuentra archivo");
+        } catch (IOException ex) {
+           System.err.println(ex.getMessage());
+        } finally {
+            try {
+                fout.close();
+            } catch (IOException ex) {
+                 System.err.println("Error al cerrar archivo");
+            }
+        }
+    }
     
     
     

@@ -36,16 +36,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        String ruta = "C:\\Picspol";
-        File D = new File(ruta);
-
-        boolean D1 = D.mkdir();
-        if (D1) {
-            System.out.println("Directory is created successfully");
-        } else {
-            System.out.println("Ya existe el album !");
-        }
-        System.out.println(D1);
+      
         launch();
     }
 
