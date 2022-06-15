@@ -13,13 +13,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author User
  */
-public class Album {
+public class Album implements Serializable{
     String nombre;
     String descripcion;
     CircularLinkedList<Imagen> fotos;
@@ -60,7 +61,7 @@ public class Album {
         FileOutputStream fout = null;
         try {
             
-            fout = new FileOutputStream("src/main/resources/Registro"+album.getNombre()+".ser");
+            fout = new FileOutputStream("src/main/resources/Registro/"+album.getNombre()+".ser");
             ObjectOutputStream out = new ObjectOutputStream(fout);
             out.writeObject(album);
             out.flush();

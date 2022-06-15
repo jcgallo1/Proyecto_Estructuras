@@ -18,7 +18,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -115,6 +114,7 @@ public class PrimaryController implements Initializable {
         try {
             for (File file : folder.listFiles()) {
                 in = new ObjectInputStream(new FileInputStream(file));
+                System.out.println((Album) in.readObject());
                 Album albumss = (Album) in.readObject();
                 albumes.add(albumss);
                 in.close();
