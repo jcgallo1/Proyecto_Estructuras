@@ -5,6 +5,7 @@
  */
 package TDAS;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Iterator;
  * @author Juan
  * @param <E>
  */
-public class CircularLinkedList<E> implements List<E> {
+public class CircularLinkedList<E> implements List<E>,Serializable {
 
     private CircularNode<E> tail;
     private int size = 0;

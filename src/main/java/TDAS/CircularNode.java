@@ -5,6 +5,7 @@
  */
 package TDAS;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Objects;
  * @author Juan
  * @param <E>
  */
-public class CircularNode<E> {
+public class CircularNode<E> implements Serializable{
     
     private E content;
     private CircularNode<E> nextNode;

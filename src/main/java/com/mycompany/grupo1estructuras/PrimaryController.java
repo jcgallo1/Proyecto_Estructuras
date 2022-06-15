@@ -7,6 +7,7 @@ package com.mycompany.grupo1estructuras;
 
 import Clases.Album;
 import static Clases.Album.guardarAlbumRegistro;
+import Clases.Imagen;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,7 +37,7 @@ import javafx.stage.Stage;
  */
 public class PrimaryController implements Initializable {
 
-    private String registro="src/main/resources/Registro/registro.txt";
+   
     @FXML
     private BorderPane panel;
     @FXML
@@ -45,12 +46,12 @@ public class PrimaryController implements Initializable {
      private Button BotonMover;
     @FXML
     private Button BotonEliminar;
-    @FXML
-    private Button botonAñadirAlbum;
     
     private ObservableList<Album> albumes;
     @FXML
     private ListView<Album> listViewAlbum;
+    @FXML
+    private MenuItem NuevoAlbum;
     
     /**
      * Initializes the controller class.
@@ -59,19 +60,13 @@ public class PrimaryController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String ruta = "C:\\Picspol";
-        File D = new File(ruta);  
-        boolean D1 = D.mkdir();
-        if (D1) {
-            System.out.println("Directory is created successfully");
-        } else {
-            System.out.println("Ya existe el album");
-        }
+        
         listViewAlbum=new ListView<>();
         this.albumes=FXCollections.observableArrayList(); 
         System.out.println(albumes);
         cargarAlbumRegistro();
         System.out.println(albumes);
+        //cargarFotosAAlbumes();
     }  
     
     @FXML
@@ -94,10 +89,6 @@ public class PrimaryController implements Initializable {
                     guardarAlbumRegistro(nuevoA);
                     this.albumes.add(nuevoA);
                 }
-                
-                //
-                //listViewAlbum.setItems(albumes);
-                //System.out.println(listViewAlbum.getItems());
             }
             
         } catch (IOException ex) {
@@ -107,19 +98,20 @@ public class PrimaryController implements Initializable {
     }
     
     
-    
+    @FXML
     public void cargarAlbumRegistro(){
         ObjectInputStream in=null;
-        File folder=new File("src/main/resources/Registro/");
+        File folder=new File("src/main/resources/Albunes/");
         try {
             for (File file : folder.listFiles()) {
-                in = new ObjectInputStream(new FileInputStream(file));
-                System.out.println((Album) in.readObject());
-                Album albumss = (Album) in.readObject();
-                albumes.add(albumss);
-                in.close();
-        }
-           
+                if(!file.isDirectory()){
+                    in = new ObjectInputStream(new FileInputStream(file));
+                    Album albumss = (Album) in.readObject();
+                    albumes.add(albumss);
+                    in.close();
+                }
+                
+        }   
         } catch (FileNotFoundException ex) {
              System.err.println("No se encuentra archivo");
         } catch (IOException ex) {
@@ -128,6 +120,53 @@ public class PrimaryController implements Initializable {
            System.err.println("Error"+ex.getMessage());
         }
         
+    }
+    @FXML
+    public void cargarFotosAAlbumes() {
+        ObjectInputStream in = null;
+        File folder;
+
+        for (Album album : albumes) {
+            folder = new File("src/main/resources/Albunes/" + album.getNombre());
+            for (File file : folder.listFiles()) {
+                try {
+                    in = new ObjectInputStream(new FileInputStream(file));
+                    Imagen imagen = (Imagen) in.readObject();
+                    album.agregarFotos(imagen);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+        }
+
+    }
+    public void importarFoto(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("ImportarFoto.fxml"));
+            Parent root= loader.load();
+            ImportarFotoController controlador= loader.getController();
+            Scene  scene = new Scene(root);
+            Stage stage= new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+            
+            System.out.println(controlador.getFile());
+            //Imagen imagen= new Imagen();
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    
+    
+    
+    public ObservableList<Album> getAlbumes(){
+        return this.albumes;
     }
 }
         

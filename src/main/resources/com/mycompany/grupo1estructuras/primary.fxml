@@ -17,7 +17,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="Insertar">
             <items>
-              <MenuItem fx:id="opcion_ImportarF" mnemonicParsing="false" text="Importar foto" />
+              <MenuItem fx:id="opcion_ImportarF" mnemonicParsing="false" onAction="#importarFoto" text="Importar foto" />
+                  <MenuItem fx:id="NuevoAlbum" mnemonicParsing="false" onAction="#añadirAlbumes" text="Nuevo Album" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -40,7 +41,6 @@
          <children>
             <Button fx:id="BotonMover" layoutX="25.0" layoutY="272.0" mnemonicParsing="false" text="Mover" />
             <Button fx:id="BotonEliminar" layoutX="20.0" layoutY="310.0" mnemonicParsing="false" text="Eliminar" />
-            <Button fx:id="botonAñadirAlbum" layoutX="6.0" layoutY="14.0" mnemonicParsing="false" onAction="#añadirAlbumes" text="Añadir Album" />
          </children>
       </Pane>
    </right>

@@ -1,7 +1,9 @@
 
 package TDAS;
 
-public class EmptyListException extends RuntimeException {
+import java.io.Serializable;
+
+public class EmptyListException extends RuntimeException implements Serializable {
     
     public EmptyListException(){
         super("La lista está vacía.");

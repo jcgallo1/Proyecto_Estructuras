@@ -6,7 +6,6 @@
 package Clases;
 
 import Clases.Imagen;
-import TDAS.ArrayList;
 import TDAS.CircularLinkedList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +31,7 @@ public class Album implements Serializable{
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fotos=new CircularLinkedList<>();
-        String ruta = "C:\\Picspol\\"+nombre;
+        String ruta = "src/main/resources/Albunes/"+nombre;
         File D = new File(ruta);
         boolean D1 = D.mkdir();
         if (D1) {
@@ -44,13 +43,12 @@ public class Album implements Serializable{
         
     }
     
-    public boolean agregarFotos(File foto,String descripcion, String lugar,Date fecha,ArrayList<Personas> persona,
-            Album nombreAlbum) {
+    public boolean agregarFotos(Imagen imagen) {
 
-        if (foto == null) {
+        if (imagen == null) {
             return false;
         } else {
-            this.fotos.addLast(new Imagen(foto, descripcion, lugar, fecha, persona, nombreAlbum));
+            this.fotos.addLast(imagen);
         }
         return false;
         
@@ -60,8 +58,7 @@ public class Album implements Serializable{
     public static void guardarAlbumRegistro(Album album){
         FileOutputStream fout = null;
         try {
-            
-            fout = new FileOutputStream("src/main/resources/Registro/"+album.getNombre()+".ser");
+            fout = new FileOutputStream("src/main/resources/Albunes/"+album.getNombre()+".ser");
             ObjectOutputStream out = new ObjectOutputStream(fout);
             out.writeObject(album);
             out.flush();
@@ -78,7 +75,6 @@ public class Album implements Serializable{
             }
         }
     }
-    
     
     
     
