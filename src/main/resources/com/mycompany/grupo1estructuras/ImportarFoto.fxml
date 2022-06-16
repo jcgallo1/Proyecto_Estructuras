@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -23,6 +24,9 @@
       <Text layoutX="61.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="personas:" />
       <Text layoutX="284.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mas de una persona separar con &quot;,&quot;" />
       <Button fx:id="importar" layoutX="494.0" layoutY="334.0" mnemonicParsing="false" onAction="#importaFoto" text="Importar" />
-      <ComboBox fx:id="albumes" layoutX="331.0" layoutY="334.0" prefWidth="150.0" />
+      <ComboBox fx:id="albumes" layoutX="331.0" layoutY="334.0" prefWidth="150.0" promptText="seleccione Album">
+         <padding>
+            <Insets left="10.0" />
+         </padding></ComboBox>
    </children>
 </Pane>

@@ -55,8 +55,9 @@ public class ImportarFotoController implements Initializable {
     private Imagen foto;
     @FXML
     private Button importar;
+    
     @FXML
-    private ComboBox<Album> albumesC;
+    private ComboBox<String> albumes;
     /**
      * Initializes the controller class.
      * @param url
@@ -69,8 +70,10 @@ public class ImportarFotoController implements Initializable {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("primary.fxml"));
             Parent root= loader.load();
             PrimaryController controlador= loader.getController();
+            for(Album album : controlador.getAlbumes()){
+                albumes.getItems().add(album.getNombre());
+            }
             
-            albumesC = new ComboBox<>(controlador.getAlbumes());
             
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -93,6 +96,9 @@ public class ImportarFotoController implements Initializable {
         Stage stage=(Stage) this.importar.getScene().getWindow();
         stage.close();
     }
+    public String getAlbum(){
+        return albumes.getValue();
+    }
     public File getFile() {
         return file;
     }
@@ -112,13 +118,10 @@ public class ImportarFotoController implements Initializable {
     public String getTxtPersonas() {
         return txtPersonas.getText();
     }
-
+    
     public Imagen getFoto() {
         return foto;
     }
 
-    @FXML
-    private void initialize(ActionEvent event) {
-    }
     
 }

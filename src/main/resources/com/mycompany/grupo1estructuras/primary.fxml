@@ -5,13 +5,15 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.PrimaryController">
-   <left>
-      <ListView fx:id="listViewAlbum" prefHeight="384.0" prefWidth="113.0" BorderPane.alignment="CENTER" />
-   </left>
    <top>
       <MenuBar prefHeight="20.0" prefWidth="598.0" BorderPane.alignment="CENTER">
         <menus>
@@ -44,7 +46,36 @@
          </children>
       </Pane>
    </right>
+   <left>
+      <VBox prefHeight="384.0" prefWidth="124.0" BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="listViewAlbum" prefHeight="243.0" prefWidth="124.0" />
+            <Pane prefHeight="138.0" prefWidth="124.0">
+               <children>
+                  <Button fx:id="botonAbirA" layoutX="19.0" layoutY="34.0" mnemonicParsing="false" onAction="#abriAlbum" prefHeight="25.0" prefWidth="86.0" text="Abrir" />
+                  <Button fx:id="botonEliminarA" layoutX="19.0" layoutY="90.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Eliminar" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </left>
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="51.0" prefWidth="413.0">
+               <children>
+                  <Text fx:id="albumAbierto" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="389.236328125">
+                     <font>
+                        <Font size="32.0" />
+                     </font></Text>
+               </children>
+            </Pane>
+            <ScrollPane prefHeight="321.0" prefWidth="382.0">
+               <content>
+                  <TilePane fx:id="imagenesPane" prefHeight="319.0" prefWidth="411.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
    </center>
 </BorderPane>

@@ -21,16 +21,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 /**
  * FXML Controller class
  *
@@ -50,9 +54,17 @@ public class PrimaryController implements Initializable {
     
     private ObservableList<Album> albumes;
     @FXML
-    private ListView<Album> listViewAlbum;
+    private ListView<String> listViewAlbum;
     @FXML
     private MenuItem NuevoAlbum;
+    @FXML
+    private Button botonAbirA;
+    @FXML
+    private Button botonEliminarA;
+    @FXML
+    private Text albumAbierto;
+    @FXML
+    private TilePane imagenesPane;
     
     /**
      * Initializes the controller class.
@@ -62,13 +74,19 @@ public class PrimaryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        listViewAlbum=new ListView<>();
+       
         this.albumes=FXCollections.observableArrayList();
         cargarAlbumRegistro();
-        System.out.println(albumes.get(0).getFotos().get(0).getDescripcion());
-        
+        cargarAlbum();
+        albumAbierto.setText("Abra un album");
+        BotonMover.setVisible(false);
+        BotonEliminar.setVisible(false);
     }  
-    
+    public void cargarAlbum(){
+        for(Album album : albumes){
+                listViewAlbum.getItems().add(album.getNombre());
+            }
+    }
     @FXML
     public void añadirAlbumes(ActionEvent event){
         try {
@@ -87,6 +105,7 @@ public class PrimaryController implements Initializable {
                 if(!this.albumes.contains(nuevoA)){
                     guardarAlbumRegistro(nuevoA);
                     this.albumes.add(nuevoA);
+                    
                 }
             }
             
@@ -95,9 +114,42 @@ public class PrimaryController implements Initializable {
         }
 
     }
-    
-    
     @FXML
+    public void abriAlbum(ActionEvent event){
+        String nombreAlbum=listViewAlbum.getSelectionModel().getSelectedItem();
+        albumAbierto.setText(nombreAlbum);
+        imagenesPane.getChildren().clear();
+        BotonMover.setVisible(true);
+        BotonEliminar.setVisible(true);
+        for (Album album : albumes) {
+            if (album.getNombre().equals(nombreAlbum)) {
+                if (!album.getFotos().isEmpty()) {
+                    for (Imagen imag : album.getFotos()) {
+                        Image img = new Image(imag.getFoto().toURI().toString());
+                        ImageView nodo = new ImageView(img);
+                        nodo.setFitHeight(70);
+                        nodo.setFitWidth(65);
+                        imagenesPane.getChildren().add(nodo);
+                        System.out.println(imag.getNombreFoto());
+                        
+                    }
+                }
+            }
+        }
+        imagenesPane.setOrientation(Orientation.HORIZONTAL);
+        imagenesPane.setHgap(4);
+        imagenesPane.setVgap(4);
+        
+    }
+    
+    public void eliminarAlbum(ActionEvent event){
+        String nombreAlbum=listViewAlbum.getSelectionModel().getSelectedItem();
+        albumAbierto.setText(nombreAlbum);
+        imagenesPane.getChildren().clear();
+        
+    }
+    
+    
     public void cargarAlbumRegistro(){
         ObjectInputStream in=null;
         File folder=new File("src/main/resources/Albunes/");
@@ -131,12 +183,11 @@ public class PrimaryController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
-            Imagen imagen= new Imagen(controlador.getFile(),controlador.getTxtDescripcion(),controlador.getTxtLugar(),controlador.getFecha(),controlador.getTxtPersonas(),"Juan");
+            Imagen imagen= new Imagen(controlador.getFile(),controlador.getTxtDescripcion(),controlador.getTxtLugar(),controlador.getFecha(),controlador.getTxtPersonas(),controlador.getAlbum());
            
             for(Album album : albumes){
                 
                 if(album.getNombre().equals(imagen.getNombreAlbum())){
-                    System.out.println("hola");
                     album.agregarFotos(imagen);
                     guardarAlbumRegistro(album);
                 }
@@ -153,6 +204,8 @@ public class PrimaryController implements Initializable {
     public ObservableList<Album> getAlbumes(){
         return this.albumes;
     }
+
+    
 }
         
     
