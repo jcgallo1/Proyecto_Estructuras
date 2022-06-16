@@ -10,7 +10,11 @@ import Clases.Imagen;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +23,7 @@ import javafx.scene.Parent;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
@@ -51,9 +56,11 @@ public class ImportarFotoController implements Initializable {
     @FXML
     private Button importar;
     @FXML
-    private ChoiceBox<Album> albumes;
+    private ComboBox<Album> albumesC;
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,7 +69,9 @@ public class ImportarFotoController implements Initializable {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("primary.fxml"));
             Parent root= loader.load();
             PrimaryController controlador= loader.getController();
-            albumes = new ChoiceBox (controlador.getAlbumes());
+            
+            albumesC = new ComboBox<>(controlador.getAlbumes());
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -88,24 +97,28 @@ public class ImportarFotoController implements Initializable {
         return file;
     }
 
-    public TextField getTxtDescripcion() {
-        return txtDescripcion;
+    public String getTxtDescripcion() {
+        return txtDescripcion.getText();
     }
 
-    public TextField getTxtLugar() {
-        return txtLugar;
+    public String getTxtLugar() {
+        return txtLugar.getText();
     }
 
-    public DatePicker getFecha() {
-        return fecha;
+    public LocalDate getFecha() {
+        return fecha.getValue();
     }
 
-    public TextField getTxtPersonas() {
-        return txtPersonas;
+    public String getTxtPersonas() {
+        return txtPersonas.getText();
     }
 
     public Imagen getFoto() {
         return foto;
+    }
+
+    @FXML
+    private void initialize(ActionEvent event) {
     }
     
 }

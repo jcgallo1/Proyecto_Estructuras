@@ -30,6 +30,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 /**
  * FXML Controller class
  *
@@ -62,16 +63,14 @@ public class PrimaryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         listViewAlbum=new ListView<>();
-        this.albumes=FXCollections.observableArrayList(); 
-        System.out.println(albumes);
+        this.albumes=FXCollections.observableArrayList();
         cargarAlbumRegistro();
-        System.out.println(albumes);
-        //cargarFotosAAlbumes();
+        System.out.println(albumes.get(0).getFotos().get(0).getDescripcion());
+        
     }  
     
     @FXML
     public void añadirAlbumes(ActionEvent event){
-        
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("AñadirAlbumDialog.fxml"));
             Parent root= loader.load();
@@ -122,27 +121,6 @@ public class PrimaryController implements Initializable {
         
     }
     @FXML
-    public void cargarFotosAAlbumes() {
-        ObjectInputStream in = null;
-        File folder;
-
-        for (Album album : albumes) {
-            folder = new File("src/main/resources/Albunes/" + album.getNombre());
-            for (File file : folder.listFiles()) {
-                try {
-                    in = new ObjectInputStream(new FileInputStream(file));
-                    Imagen imagen = (Imagen) in.readObject();
-                    album.agregarFotos(imagen);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (ClassNotFoundException ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-        }
-
-    }
     public void importarFoto(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("ImportarFoto.fxml"));
@@ -153,18 +131,25 @@ public class PrimaryController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+            Imagen imagen= new Imagen(controlador.getFile(),controlador.getTxtDescripcion(),controlador.getTxtLugar(),controlador.getFecha(),controlador.getTxtPersonas(),"Juan");
+           
+            for(Album album : albumes){
+                
+                if(album.getNombre().equals(imagen.getNombreAlbum())){
+                    System.out.println("hola");
+                    album.agregarFotos(imagen);
+                    guardarAlbumRegistro(album);
+                }
+                
+            }
             
-            System.out.println(controlador.getFile());
-            //Imagen imagen= new Imagen();
             
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
     
-    
-    
-    
+   
     public ObservableList<Album> getAlbumes(){
         return this.albumes;
     }

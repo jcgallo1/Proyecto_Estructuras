@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -22,14 +23,14 @@ public class Imagen implements Serializable{
     private File foto;
     private String descripcion;
     private String lugar;
-    private Date fecha;
+    private LocalDate fecha;
     private String personas;
-    private Album nombreAlbum;
+    private String nombreAlbum;
     //agregue un nuevo atributo tipo file que son las Imagen jpg para asociarlas luego con la descripcion
     public Imagen(File foto,String descripcion, String lugar, 
-                Date fecha, 
+                LocalDate fecha, 
                 String persona, 
-                Album nombreAlbum) {
+                String nombreAlbum) {
         this.foto= foto;
         this.descripcion = descripcion;
         this.lugar = lugar;
@@ -66,6 +67,10 @@ public class Imagen implements Serializable{
             }
         }
     }
+
+    public File getFoto() {
+        return foto;
+    }
     
     
     
@@ -96,11 +101,11 @@ public class Imagen implements Serializable{
         this.lugar = lugar;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -112,11 +117,11 @@ public class Imagen implements Serializable{
         this.personas+=","+persona;
     }
 
-    public Album getNombreAlbum() {
+    public String getNombreAlbum() {
         return nombreAlbum;
     }
 
-    public void setNombreAlbum(Album nombreAlbum) {
+    public void setNombreAlbum(String nombreAlbum) {
         this.nombreAlbum = nombreAlbum;
     }
      
