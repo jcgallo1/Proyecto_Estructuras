@@ -5,6 +5,7 @@
  */
 package TDAS;
 
+import TDAS.CircularNode;
 import java.io.Serializable;
 import java.util.Iterator;
 
@@ -311,6 +312,7 @@ public class CircularLinkedList<E> implements List<E>,Serializable {
         return it;
     }
 
+    
     @Override
     public boolean add(E Element, int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

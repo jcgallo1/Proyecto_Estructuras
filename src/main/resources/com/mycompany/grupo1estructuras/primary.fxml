@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.PrimaryController">
+<BorderPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.PrimaryController">
    <top>
       <MenuBar prefHeight="20.0" prefWidth="598.0" BorderPane.alignment="CENTER">
         <menus>
@@ -47,13 +47,13 @@
       </Pane>
    </right>
    <left>
-      <VBox prefHeight="384.0" prefWidth="124.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="129.0" prefWidth="124.0" BorderPane.alignment="CENTER">
          <children>
             <ListView fx:id="listViewAlbum" prefHeight="243.0" prefWidth="124.0" />
             <Pane prefHeight="138.0" prefWidth="124.0">
                <children>
                   <Button fx:id="botonAbirA" layoutX="19.0" layoutY="34.0" mnemonicParsing="false" onAction="#abriAlbum" prefHeight="25.0" prefWidth="86.0" text="Abrir" />
-                  <Button fx:id="botonEliminarA" layoutX="19.0" layoutY="90.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Eliminar" />
+                  <Button fx:id="botonEliminarA" layoutX="19.0" layoutY="90.0" mnemonicParsing="false" onAction="#eliminarAlbum" prefHeight="25.0" prefWidth="83.0" text="Eliminar" />
                </children>
             </Pane>
          </children>
@@ -62,7 +62,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="51.0" prefWidth="413.0">
+            <Pane prefHeight="44.0" prefWidth="413.0">
                <children>
                   <Text fx:id="albumAbierto" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="389.236328125">
                      <font>
@@ -70,12 +70,21 @@
                      </font></Text>
                </children>
             </Pane>
-            <ScrollPane prefHeight="321.0" prefWidth="382.0">
+            <ScrollPane prefHeight="374.0" prefWidth="578.0">
                <content>
-                  <TilePane fx:id="imagenesPane" prefHeight="319.0" prefWidth="411.0" />
+                  <TilePane fx:id="imagenesPane" prefHeight="373.0" prefWidth="572.0" />
                </content>
             </ScrollPane>
          </children>
       </VBox>
    </center>
+   <bottom>
+      <Pane prefHeight="58.0" prefWidth="696.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="botonSiguiente" layoutX="622.0" layoutY="12.0" mnemonicParsing="false" onAction="#siguienteFoto" prefHeight="35.0" prefWidth="61.0" text="Next" />
+            <Button fx:id="botonAtras" layoutX="543.0" layoutY="12.0" mnemonicParsing="false" onAction="#anteriorFoto" prefHeight="35.0" prefWidth="61.0" text="atras" />
+            <Button fx:id="regresar" layoutX="138.0" layoutY="8.0" mnemonicParsing="false" onAction="#regresar" prefHeight="34.0" prefWidth="68.0" text="regresar" />
+         </children>
+      </Pane>
+   </bottom>
 </BorderPane>

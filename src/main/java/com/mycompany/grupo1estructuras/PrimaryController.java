@@ -8,6 +8,8 @@ package com.mycompany.grupo1estructuras;
 import Clases.Album;
 import static Clases.Album.guardarAlbumRegistro;
 import Clases.Imagen;
+import TDAS.CircularLinkedList;
+import TDAS.CircularNode;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,6 +20,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +33,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
@@ -42,7 +46,7 @@ import javafx.stage.Stage;
  */
 public class PrimaryController implements Initializable {
 
-   
+    private String imagenclic;
     @FXML
     private BorderPane panel;
     @FXML
@@ -66,6 +70,17 @@ public class PrimaryController implements Initializable {
     @FXML
     private TilePane imagenesPane;
     
+    private ImageView imagenAbierta;
+    
+    private CircularNode<Imagen> Imagen;
+    @FXML
+    private Button botonSiguiente;
+    @FXML
+    private Button botonAtras;
+    @FXML
+    private Button regresar;
+    
+   
     /**
      * Initializes the controller class.
      * @param url
@@ -73,19 +88,23 @@ public class PrimaryController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-       
         this.albumes=FXCollections.observableArrayList();
         cargarAlbumRegistro();
         cargarAlbum();
         albumAbierto.setText("Abra un album");
         BotonMover.setVisible(false);
         BotonEliminar.setVisible(false);
-    }  
+        botonSiguiente.setVisible(false);
+        botonAtras.setVisible(false);
+    }   
+    
     public void cargarAlbum(){
+        listViewAlbum.getItems().clear();
         for(Album album : albumes){
                 listViewAlbum.getItems().add(album.getNombre());
             }
+        
+        
     }
     @FXML
     public void añadirAlbumes(ActionEvent event){
@@ -99,12 +118,12 @@ public class PrimaryController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
-            
             Album nuevoA= controlador.getNuevoA();
             if(nuevoA != null){
                 if(!this.albumes.contains(nuevoA)){
                     guardarAlbumRegistro(nuevoA);
                     this.albumes.add(nuevoA);
+                    cargarAlbum();
                     
                 }
             }
@@ -115,22 +134,47 @@ public class PrimaryController implements Initializable {
 
     }
     @FXML
-    public void abriAlbum(ActionEvent event){
+    public void abriAlbum(){
         String nombreAlbum=listViewAlbum.getSelectionModel().getSelectedItem();
         albumAbierto.setText(nombreAlbum);
-        imagenesPane.getChildren().clear();
         BotonMover.setVisible(true);
         BotonEliminar.setVisible(true);
+        botonSiguiente.setVisible(false);
+        botonAtras.setVisible(false);
+        cargarFotosPane(nombreAlbum);
+    }
+    public void cargarFotosPane(String nombreAlbum){
+        imagenesPane.getChildren().clear();
         for (Album album : albumes) {
             if (album.getNombre().equals(nombreAlbum)) {
                 if (!album.getFotos().isEmpty()) {
                     for (Imagen imag : album.getFotos()) {
                         Image img = new Image(imag.getFoto().toURI().toString());
                         ImageView nodo = new ImageView(img);
-                        nodo.setFitHeight(70);
-                        nodo.setFitWidth(65);
+                        nodo.setId(nombreAlbum+","+imag.getNombreFoto());
+                        
+//-nodo.setOnMouseClicked(mouseHandler);___________________________________________________
+                        nodo.setOnMouseClicked(e -> {
+                            imagenesPane.getChildren().clear();
+                            botonSiguiente.setVisible(true);
+                            botonAtras.setVisible(true);
+                            System.out.println(nombreAlbum);
+                            System.out.println(imag.getNombreFoto());
+                            Imagen=album.getFotos().getFirst();
+                            Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
+                            ImageView nodoImagenGrande = new ImageView(imageGrande);
+                            nodoImagenGrande.setFitHeight(325);
+                            nodoImagenGrande.setFitWidth(320);
+                            imagenesPane.getChildren().add(nodoImagenGrande);
+                            
+                             
+                        });
+                        
+                            
+                        nodo.setFitHeight(150);
+                        nodo.setFitWidth(95);
                         imagenesPane.getChildren().add(nodo);
-                        System.out.println(imag.getNombreFoto());
+                        
                         
                     }
                 }
@@ -140,12 +184,59 @@ public class PrimaryController implements Initializable {
         imagenesPane.setHgap(4);
         imagenesPane.setVgap(4);
         
+        
+        
+        
+    }
+    @FXML
+    public void regresar(ActionEvent event){
+        abriAlbum();
+    }
+    @FXML
+    public void siguienteFoto(ActionEvent event){
+        imagenesPane.getChildren().clear();
+        Imagen = Imagen.getNextNode();
+        Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
+        ImageView nodoImagenGrande = new ImageView(imageGrande);
+
+        nodoImagenGrande.setFitHeight(200);
+        nodoImagenGrande.setFitWidth(200);
+        imagenesPane.getChildren().add(nodoImagenGrande);
     }
     
+    @FXML
+    public void anteriorFoto(ActionEvent event){
+        imagenesPane.getChildren().clear();
+        Imagen=Imagen.getPrevNode();
+        Imagen = Imagen.getNextNode();
+        Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
+        ImageView nodoImagenGrande = new ImageView(imageGrande);
+
+        nodoImagenGrande.setFitHeight(200);
+        nodoImagenGrande.setFitWidth(200);
+        imagenesPane.getChildren().add(nodoImagenGrande);
+    }
+    @FXML
     public void eliminarAlbum(ActionEvent event){
         String nombreAlbum=listViewAlbum.getSelectionModel().getSelectedItem();
         albumAbierto.setText(nombreAlbum);
         imagenesPane.getChildren().clear();
+        for(Album albume : albumes){
+            
+            if(albume.getNombre().equals(nombreAlbum)){
+                albumes.remove(albume);
+                File directorio = new File("src/main/resources/Albunes/" + albume.getNombre());
+                File albumSer = new File("src/main/resources/Albunes/" + albume.getNombre() + ".ser");
+                if (directorio.delete() && albumSer.delete()) {
+                    System.out.println("Eliminado");
+                } else {
+                    System.out.println("Error");
+                }
+                cargarAlbum();
+                
+            }
+        }
+        
         
     }
     
@@ -186,10 +277,12 @@ public class PrimaryController implements Initializable {
             Imagen imagen= new Imagen(controlador.getFile(),controlador.getTxtDescripcion(),controlador.getTxtLugar(),controlador.getFecha(),controlador.getTxtPersonas(),controlador.getAlbum());
            
             for(Album album : albumes){
-                
                 if(album.getNombre().equals(imagen.getNombreAlbum())){
                     album.agregarFotos(imagen);
                     guardarAlbumRegistro(album);
+                    cargarFotosPane(album.getNombre());
+                    albumAbierto.setText(album.getNombre());
+                    
                 }
                 
             }
@@ -204,25 +297,10 @@ public class PrimaryController implements Initializable {
     public ObservableList<Album> getAlbumes(){
         return this.albumes;
     }
-
+    public String getImagenclic() {
+        return this.imagenclic;
+    }
     
 }
         
     
-/*
-codigo para recorrer los archivos de alguna carpeta
-    public static void findAllFilesInFolder(File folder) {
-        for (File file : folder.listFiles()) {
-            if (!file.isDirectory()) {
-                System.out.println(file.getName());
-            } else {
-                findAllFilesInFolder(file);
-            }
-        }
-       
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        Window stage = null;
-        File file = directoryChooser.showDialog(stage);
-        String path = file.getPath();
-        findAllFilesInFolder(file);
-        */
