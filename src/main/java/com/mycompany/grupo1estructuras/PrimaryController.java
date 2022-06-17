@@ -151,15 +151,11 @@ public class PrimaryController implements Initializable {
                     for (Imagen imag : album.getFotos()) {
                         Image img = new Image(imag.getFoto().toURI().toString());
                         ImageView nodo = new ImageView(img);
-                        nodo.setId(nombreAlbum+","+imag.getNombreFoto());
-                        
-//-nodo.setOnMouseClicked(mouseHandler);___________________________________________________
                         nodo.setOnMouseClicked(e -> {
                             imagenesPane.getChildren().clear();
                             botonSiguiente.setVisible(true);
                             botonAtras.setVisible(true);
-                            System.out.println(nombreAlbum);
-                            System.out.println(imag.getNombreFoto());
+                            regresar.setVisible(true);
                             Imagen=album.getFotos().getFirst();
                             Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
                             ImageView nodoImagenGrande = new ImageView(imageGrande);
@@ -183,14 +179,14 @@ public class PrimaryController implements Initializable {
         imagenesPane.setOrientation(Orientation.HORIZONTAL);
         imagenesPane.setHgap(4);
         imagenesPane.setVgap(4);
-        
-        
-        
-        
     }
+    
+    
+    
     @FXML
     public void regresar(ActionEvent event){
         abriAlbum();
+        regresar.setVisible(false);
     }
     @FXML
     public void siguienteFoto(ActionEvent event){
@@ -199,8 +195,8 @@ public class PrimaryController implements Initializable {
         Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
         ImageView nodoImagenGrande = new ImageView(imageGrande);
 
-        nodoImagenGrande.setFitHeight(200);
-        nodoImagenGrande.setFitWidth(200);
+        nodoImagenGrande.setFitHeight(325);
+        nodoImagenGrande.setFitWidth(320);
         imagenesPane.getChildren().add(nodoImagenGrande);
     }
     
@@ -208,12 +204,11 @@ public class PrimaryController implements Initializable {
     public void anteriorFoto(ActionEvent event){
         imagenesPane.getChildren().clear();
         Imagen=Imagen.getPrevNode();
-        Imagen = Imagen.getNextNode();
         Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
         ImageView nodoImagenGrande = new ImageView(imageGrande);
 
-        nodoImagenGrande.setFitHeight(200);
-        nodoImagenGrande.setFitWidth(200);
+        nodoImagenGrande.setFitHeight(325);
+        nodoImagenGrande.setFitWidth(320);
         imagenesPane.getChildren().add(nodoImagenGrande);
     }
     @FXML
