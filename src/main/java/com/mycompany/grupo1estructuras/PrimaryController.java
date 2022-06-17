@@ -30,11 +30,16 @@ import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -79,6 +84,12 @@ public class PrimaryController implements Initializable {
     private Button botonAtras;
     @FXML
     private Button regresar;
+    @FXML
+    private MenuBar menubar;
+    @FXML
+    private Pane panedeFoto;
+    @FXML
+    private ScrollPane scrollImagen;
     
    
     /**
@@ -141,6 +152,7 @@ public class PrimaryController implements Initializable {
         BotonEliminar.setVisible(true);
         botonSiguiente.setVisible(false);
         botonAtras.setVisible(false);
+        
         cargarFotosPane(nombreAlbum);
     }
     public void cargarFotosPane(String nombreAlbum){
@@ -156,11 +168,13 @@ public class PrimaryController implements Initializable {
                             botonSiguiente.setVisible(true);
                             botonAtras.setVisible(true);
                             regresar.setVisible(true);
+                            desactivarEntornoFoto(false);
                             Imagen=album.getFotos().getFirst();
                             Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
                             ImageView nodoImagenGrande = new ImageView(imageGrande);
-                            nodoImagenGrande.setFitHeight(325);
-                            nodoImagenGrande.setFitWidth(320);
+                            nodoImagenGrande.setFitHeight(368);
+                            nodoImagenGrande.setFitWidth(349);
+                            
                             imagenesPane.getChildren().add(nodoImagenGrande);
                             
                              
@@ -182,11 +196,22 @@ public class PrimaryController implements Initializable {
     }
     
     
-    
+    public void desactivarEntornoFoto(Boolean valor){
+        menubar.setVisible(valor);
+        listViewAlbum.setVisible(valor);
+        botonAbirA.setVisible(valor);
+        botonEliminarA.setVisible(valor);
+        
+    }
     @FXML
     public void regresar(ActionEvent event){
         abriAlbum();
         regresar.setVisible(false);
+        menubar.setVisible(true);
+        desactivarEntornoFoto(true);
+       
+        
+       
     }
     @FXML
     public void siguienteFoto(ActionEvent event){
@@ -195,8 +220,9 @@ public class PrimaryController implements Initializable {
         Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
         ImageView nodoImagenGrande = new ImageView(imageGrande);
 
-        nodoImagenGrande.setFitHeight(325);
-        nodoImagenGrande.setFitWidth(320);
+        nodoImagenGrande.setFitHeight(368);
+        nodoImagenGrande.setFitWidth(349);
+        
         imagenesPane.getChildren().add(nodoImagenGrande);
     }
     
@@ -206,9 +232,8 @@ public class PrimaryController implements Initializable {
         Imagen=Imagen.getPrevNode();
         Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
         ImageView nodoImagenGrande = new ImageView(imageGrande);
-
-        nodoImagenGrande.setFitHeight(325);
-        nodoImagenGrande.setFitWidth(320);
+        nodoImagenGrande.setFitHeight(368);
+        nodoImagenGrande.setFitWidth(349);
         imagenesPane.getChildren().add(nodoImagenGrande);
     }
     @FXML
@@ -217,7 +242,6 @@ public class PrimaryController implements Initializable {
         albumAbierto.setText(nombreAlbum);
         imagenesPane.getChildren().clear();
         for(Album albume : albumes){
-            
             if(albume.getNombre().equals(nombreAlbum)){
                 albumes.remove(albume);
                 File directorio = new File("src/main/resources/Albunes/" + albume.getNombre());

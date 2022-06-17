@@ -6,6 +6,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
@@ -15,7 +16,7 @@
 
 <BorderPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.PrimaryController">
    <top>
-      <MenuBar prefHeight="20.0" prefWidth="598.0" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menubar" prefHeight="20.0" prefWidth="598.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Insertar">
             <items>
@@ -36,6 +37,9 @@
               </items>
             </Menu>
         </menus>
+         <effect>
+            <Blend />
+         </effect>
       </MenuBar>
    </top>
    <right>
@@ -62,19 +66,19 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="44.0" prefWidth="413.0">
+            <Pane fx:id="panedeFoto" prefHeight="423.0" prefWidth="578.0">
                <children>
                   <Text fx:id="albumAbierto" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="389.236328125">
                      <font>
                         <Font size="32.0" />
                      </font></Text>
+                  <ScrollPane fx:id="scrollImagen" layoutY="51.0" prefHeight="371.0" prefWidth="583.0">
+                     <content>
+                        <TilePane fx:id="imagenesPane" prefHeight="368.0" prefWidth="580.0" />
+                     </content>
+                  </ScrollPane>
                </children>
             </Pane>
-            <ScrollPane prefHeight="374.0" prefWidth="578.0">
-               <content>
-                  <TilePane fx:id="imagenesPane" prefHeight="373.0" prefWidth="572.0" />
-               </content>
-            </ScrollPane>
          </children>
       </VBox>
    </center>
