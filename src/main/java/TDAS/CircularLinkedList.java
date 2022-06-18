@@ -238,7 +238,6 @@ public class CircularLinkedList<E> implements List<E>,Serializable {
         if (isEmpty() || index > size() - 1 || index < 0) {
             return null;
         }
-
         if (index == 0) {
             return getFirst().getContent();
         }
@@ -253,7 +252,25 @@ public class CircularLinkedList<E> implements List<E>,Serializable {
 
         return cursor.getContent();
     }
+    
+    public CircularNode<E> getNode(int index){
+        if (isEmpty() || index > size() - 1 || index < 0) {
+            return null;
+        }
+        if (index == 0) {
+            return getFirst();
+        }
+        if (index == -1) {
+            return getLast();
+        }
 
+        CircularNode<E> cursor = tail.getNextNode();
+        for (int i = 0; i < index; i++) {
+            cursor = cursor.getNextNode();
+        }
+
+        return cursor;
+    }
     @Override
     public E set(int index, E element) {
         if (isEmpty() || index > size() || index < 0) {

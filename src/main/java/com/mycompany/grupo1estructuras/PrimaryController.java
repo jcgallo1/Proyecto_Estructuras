@@ -8,7 +8,6 @@ package com.mycompany.grupo1estructuras;
 import Clases.Album;
 import static Clases.Album.guardarAlbumRegistro;
 import Clases.Imagen;
-import TDAS.CircularLinkedList;
 import TDAS.CircularNode;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +19,6 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,11 +31,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -163,24 +158,22 @@ public class PrimaryController implements Initializable {
                     for (Imagen imag : album.getFotos()) {
                         Image img = new Image(imag.getFoto().toURI().toString());
                         ImageView nodo = new ImageView(img);
+                        nodo.setId(imag.getNombreFoto());
+                        
                         nodo.setOnMouseClicked(e -> {
+                            
                             imagenesPane.getChildren().clear();
                             botonSiguiente.setVisible(true);
                             botonAtras.setVisible(true);
                             regresar.setVisible(true);
                             desactivarEntornoFoto(false);
-                            Imagen=album.getFotos().getFirst();
+                            Imagen=album.getFotos().getNode(album.getFotos().indexOf(imag));
                             Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
                             ImageView nodoImagenGrande = new ImageView(imageGrande);
                             nodoImagenGrande.setFitHeight(368);
                             nodoImagenGrande.setFitWidth(349);
-                            
                             imagenesPane.getChildren().add(nodoImagenGrande);
-                            
-                             
-                        });
-                        
-                            
+                        });  
                         nodo.setFitHeight(150);
                         nodo.setFitWidth(95);
                         imagenesPane.getChildren().add(nodo);

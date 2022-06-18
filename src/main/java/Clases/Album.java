@@ -44,7 +44,6 @@ public class Album implements Serializable{
     }
     
     public boolean agregarFotos(Imagen imagen) {
-
         if (imagen == null) {
             return false;
         } else {
@@ -53,7 +52,8 @@ public class Album implements Serializable{
         return false;
         
     }
-
+    
+   
     
     public static void guardarAlbumRegistro(Album album){
         FileOutputStream fout = null;
