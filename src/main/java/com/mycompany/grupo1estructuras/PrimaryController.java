@@ -159,20 +159,22 @@ public class PrimaryController implements Initializable {
                         Image img = new Image(imag.getFoto().toURI().toString());
                         ImageView nodo = new ImageView(img);
                         nodo.setId(imag.getNombreFoto());
-                        
                         nodo.setOnMouseClicked(e -> {
+                            Imagen = album.getFotos().getNode(album.getFotos().indexOf(imag));
                             
-                            imagenesPane.getChildren().clear();
-                            botonSiguiente.setVisible(true);
-                            botonAtras.setVisible(true);
-                            regresar.setVisible(true);
-                            desactivarEntornoFoto(false);
-                            Imagen=album.getFotos().getNode(album.getFotos().indexOf(imag));
-                            Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
-                            ImageView nodoImagenGrande = new ImageView(imageGrande);
-                            nodoImagenGrande.setFitHeight(368);
-                            nodoImagenGrande.setFitWidth(349);
-                            imagenesPane.getChildren().add(nodoImagenGrande);
+                            nodo.setOnMouseClicked(a -> {
+                                imagenesPane.getChildren().clear();
+                                botonSiguiente.setVisible(true);
+                                botonAtras.setVisible(true);
+                                regresar.setVisible(true);
+                                desactivarEntornoFoto(false);
+                                Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
+                                ImageView nodoImagenGrande = new ImageView(imageGrande);
+                                nodoImagenGrande.setFitHeight(368);
+                                nodoImagenGrande.setFitWidth(349);
+                                imagenesPane.getChildren().add(nodoImagenGrande);
+                            });
+                            
                         });  
                         nodo.setFitHeight(150);
                         nodo.setFitWidth(95);
@@ -228,6 +230,24 @@ public class PrimaryController implements Initializable {
         nodoImagenGrande.setFitHeight(368);
         nodoImagenGrande.setFitWidth(349);
         imagenesPane.getChildren().add(nodoImagenGrande);
+    }
+    
+    @FXML
+    public void EliminarFoto(){
+       
+        String nombreAlbum = listViewAlbum.getSelectionModel().getSelectedItem();
+        for (Album album : albumes) {
+            if (album.getNombre().equals(nombreAlbum)) {
+                album.getFotos().removerNodo(Imagen);
+                File fotoser = new File("src/main/resources/Albunes/" + album.getNombre()+"/" +Imagen.getContent().getNombreFoto() + ".ser");
+                System.out.println(fotoser.delete());
+                guardarAlbumRegistro(album);
+            }
+        }
+        abriAlbum();
+    }
+    public void moverFoto(){
+        
     }
     @FXML
     public void eliminarAlbum(ActionEvent event){

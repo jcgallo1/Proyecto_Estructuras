@@ -46,7 +46,7 @@
       <Pane prefHeight="384.0" prefWidth="98.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="BotonMover" layoutX="25.0" layoutY="272.0" mnemonicParsing="false" text="Mover" />
-            <Button fx:id="BotonEliminar" layoutX="20.0" layoutY="310.0" mnemonicParsing="false" text="Eliminar" />
+            <Button fx:id="BotonEliminar" layoutX="20.0" layoutY="310.0" mnemonicParsing="false" onAction="#EliminarFoto" text="Eliminar" />
          </children>
       </Pane>
    </right>

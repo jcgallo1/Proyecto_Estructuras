@@ -232,7 +232,23 @@ public class CircularLinkedList<E> implements List<E>,Serializable {
 
         return current.getContent();
     }
+    
+    public E removerNodo(CircularNode<E> current) {
+        System.out.println("remove" + current.getContent());
+        if (isEmpty()) {
+            return null;
+        }
+        if (current == getFirst()) {
+            return removeFirst();
+        }
+        if (current ==getLast()) {
+            return removeLast();
+        }
+        current.getPrevNode().setNextNode(current.getNextNode());
+        current.getNextNode().setPrevNode(current.getPrevNode());
 
+        return current.getContent();
+    }
     @Override
     public E get(int index) {
         if (isEmpty() || index > size() - 1 || index < 0) {
