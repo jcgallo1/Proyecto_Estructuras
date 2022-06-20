@@ -21,7 +21,7 @@ public class App extends Application {
         
         
         
-        scene = new Scene(loadFXML("primary"), 800, 500);
+        scene = new Scene(loadFXML("primary"), 911, 565);
         stage.setScene(scene);
         stage.show();
     }

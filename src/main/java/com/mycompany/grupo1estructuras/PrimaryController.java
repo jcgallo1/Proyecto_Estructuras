@@ -27,6 +27,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -85,6 +87,8 @@ public class PrimaryController implements Initializable {
     private Pane panedeFoto;
     @FXML
     private ScrollPane scrollImagen;
+    @FXML
+    private ComboBox<String> albumesBox;
     
    
     /**
@@ -102,6 +106,7 @@ public class PrimaryController implements Initializable {
         BotonEliminar.setVisible(false);
         botonSiguiente.setVisible(false);
         botonAtras.setVisible(false);
+        albumesBox.setVisible(false);
     }   
     
     public void cargarAlbum(){
@@ -246,7 +251,42 @@ public class PrimaryController implements Initializable {
         }
         abriAlbum();
     }
+    @FXML
     public void moverFoto(){
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("ImportarFoto.fxml"));
+            Parent root= loader.load();
+            ImportarFotoController controlador= loader.getController();
+            controlador.getBotonBuscar().setVisible(false);
+            controlador.getTxtLugarM().setText(Imagen.getContent().getLugar());
+            controlador.getTxtPersonasM().setText(Imagen.getContent().getPersonas());
+            controlador.getTxtDescripcionM().setText(Imagen.getContent().getDescripcion());
+            controlador.getTxtInicio().setText("Modificar Foto");
+            controlador.setPath(Imagen.getContent().getNombreFoto());
+            Scene  scene = new Scene(root);
+            Stage stage= new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+            
+            for(Album album : albumes){
+                if(album.getNombre().equals(Imagen.getContent().getNombreAlbum())){
+                    if(!album.getFotos().contains(Imagen.getContent())){
+                        album.agregarFotos(Imagen.getContent());
+                        guardarAlbumRegistro(album);
+                        cargarFotosPane(album.getNombre());
+                        albumAbierto.setText(album.getNombre());
+                    }
+                    
+                    
+                }
+                
+            }
+            
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         
     }
     @FXML
@@ -296,7 +336,7 @@ public class PrimaryController implements Initializable {
         
     }
     @FXML
-    public void importarFoto(ActionEvent event){
+    public void importarFoto(){
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("ImportarFoto.fxml"));
             Parent root= loader.load();
