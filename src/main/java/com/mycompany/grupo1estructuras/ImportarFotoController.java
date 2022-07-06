@@ -7,6 +7,7 @@ package com.mycompany.grupo1estructuras;
 
 import Clases.Album;
 import Clases.Imagen;
+import Clases.reacciones;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +24,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -71,6 +75,34 @@ public class ImportarFotoController implements Initializable {
     private Text tImport;
     @FXML
     private Text tFotof;
+    @FXML
+    private TabPane tabpane;
+    @FXML
+    private Tab tabImportar;
+    @FXML
+    private Tab tabAvanzado;
+    
+    private reacciones reaccion;
+    @FXML
+    private TextField comentario;
+    @FXML
+    private TextField hashtags;
+    @FXML
+    private Pane like;
+    @FXML
+    private Pane love;
+    @FXML
+    private Pane meImporta;
+    @FXML
+    private Pane hahah;
+    @FXML
+    private Pane sorprende;
+    @FXML
+    private Pane sad;
+    @FXML
+    private Pane angry;
+    @FXML
+    private TextField camara;
     /**
      * Initializes the controller class.
      * @param url
@@ -99,6 +131,35 @@ public class ImportarFotoController implements Initializable {
             ex.printStackTrace();
         }
         
+        angry.setOnMouseClicked(e->{
+            reaccion=reaccion.angry;
+        }
+                
+        );
+        sad.setOnMouseClicked(e->{
+            reaccion=reaccion.sad;
+        }
+        );;
+        sorprende.setOnMouseClicked(e->{
+            reaccion=reaccion.wow;
+        }
+        );;
+        hahah.setOnMouseClicked(e->{
+            reaccion=reaccion.haha;
+        }
+        );;
+        meImporta.setOnMouseClicked(e->{
+            reaccion=reaccion.appreciation;
+        }
+        );;
+        love.setOnMouseClicked(e->{
+            reaccion=reaccion.love;
+        }
+        );;
+        like.setOnMouseClicked(e->{
+            reaccion=reaccion.like;
+        }
+        );;
     }    
     
     
@@ -142,11 +203,43 @@ public class ImportarFotoController implements Initializable {
             Stage stage=(Stage) this.importar.getScene().getWindow();
             stage.close();
         }
-        fecha.setValue(LocalDate.now());
+        
     }
 
     public Button getBotonBuscar() {
         return botonBuscar;
+    }
+
+    public reacciones getReaccion() {
+        return reaccion;
+    }
+
+    public void setReaccion(reacciones reaccion) {
+        this.reaccion = reaccion;
+    }
+
+    public TextField getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(TextField hashtags) {
+        this.hashtags = hashtags;
+    }
+
+    public TextField getCamara() {
+        return camara;
+    }
+
+    public void setCamara(TextField camara) {
+        this.camara = camara;
+    }
+
+    public TextField getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(TextField comentario) {
+        this.comentario = comentario;
     }
     
     

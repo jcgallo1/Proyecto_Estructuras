@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import Clases.reacciones;
 import TDAS.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,24 +27,30 @@ public class Imagen implements Serializable{
     private LocalDate fecha;
     private String personas;
     private String nombreAlbum;
+    private reacciones reaccion;
+    private String Camara;
+    private String hashtags;
+    private String comentario;
     //agregue un nuevo atributo tipo file que son las Imagen jpg para asociarlas luego con la descripcion
     public Imagen(File foto,String descripcion, String lugar, 
                 LocalDate fecha, 
                 String persona, 
-                String nombreAlbum) {
+                String nombreAlbum,reacciones reaccion,String camara,String hashtag,String comentario) {
         this.foto= foto;
         this.descripcion = descripcion;
         this.lugar = lugar;
         this.fecha = fecha;
         this.personas =persona;
         this.nombreAlbum = nombreAlbum;
-        
+        this.reaccion=reaccion;
+        this.Camara=camara;
+        this.hashtags=hashtag;
+        this.comentario=comentario;
         guardarFotoRegistro(this);
         
         
     }
-    
-    
+
     
     
     
@@ -78,6 +85,39 @@ public class Imagen implements Serializable{
     
     
     
+    
+    
+    public reacciones getReaccion() {
+        return reaccion;
+    }
+
+    public void setReaccion(reacciones reaccion) {
+        this.reaccion = reaccion;
+    }
+
+    public String getCamara() {
+        return Camara;
+    }
+
+    public void setCamara(String Camara) {
+        this.Camara = Camara;
+    }
+
+    public String getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(String hashtags) {
+        this.hashtags = hashtags;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
     
     
     

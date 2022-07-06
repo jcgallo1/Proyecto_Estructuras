@@ -102,6 +102,8 @@ public class PrimaryController implements Initializable {
     private Menu menuBusquedas;
     
     private String busqueda;
+    @FXML
+    private ComboBox<String> busquedasBox;
     /**
      * Initializes the controller class.
      * @param url
@@ -143,7 +145,7 @@ public class PrimaryController implements Initializable {
         botonAtras.setVisible(false);
         buscarBoton.setVisible(false);
         buscar.setVisible(false);
-        
+        busquedasBox.setVisible(false);
         buscarAlbum.setOnAction(e -> {
             
             if(listViewAlbum.getSelectionModel().getSelectedItem()!=null){
@@ -153,6 +155,7 @@ public class PrimaryController implements Initializable {
                 buscar.setVisible(true);
                 desactivarEntornoFoto(false);
                 this.busqueda = "buscarAlbum";
+                busquedasBox.setVisible(true);
             }else{
                 albumAbierto.setText("Escoga un album");
             }
@@ -161,6 +164,7 @@ public class PrimaryController implements Initializable {
             
         });
         buscarGlobal.setOnAction(a -> {
+            busquedasBox.setVisible(true);
             imagenesPane.getChildren().clear();
             regresar.setVisible(true);
             buscarBoton.setVisible(true);
@@ -171,6 +175,16 @@ public class PrimaryController implements Initializable {
             
         });
         
+        busquedasBox.getItems().add("Todo");
+        busquedasBox.getItems().add("Fecha");
+        busquedasBox.getItems().add("Lugar");
+        busquedasBox.getItems().add("Personas");
+        busquedasBox.getItems().add("Reaccion");
+        busquedasBox.getItems().add("Camara");
+        busquedasBox.getItems().add("Hashtag");
+        busquedasBox.getItems().add("Persona, Lugar");
+
+
     }   
     // SECCION DE ALBUM
     
@@ -232,7 +246,7 @@ public class PrimaryController implements Initializable {
         botonAtras.setVisible(false);
         buscarBoton.setVisible(false);
         buscar.setVisible(false);
-        
+        buscar.clear();
         cargarFotosPane(nombreAlbum);
     }
     
@@ -352,35 +366,76 @@ public class PrimaryController implements Initializable {
     //el programa se pone en modo busqueda
     @FXML
     public void busquedaAlbum(){
-        Album alb=new Album("tmp","null",false);
-        Album albumselec=null;
-        String[] str=buscar.getText().toLowerCase().split(",");
         
-        if(busqueda.equals("buscarAlbum")){
-           
-            for(Album album: albumes){
-                if(album.getNombre().equals(albumAbierto.getText())){
-                    albumselec=album;
-                    for(Imagen imag: album.getFotos()){
-                        ArrayList<String> informacion=new ArrayList<>();
-                        String[] fotoDes=imag.getDescripcion().toLowerCase().split(" ");
-                        String[] personas=imag.getPersonas().toLowerCase().split(",");
-                        String[] lugar=imag.getLugar().toLowerCase().split(" ");
-                        informacion.addLast(imag.getFecha().toString());
-                        informacion.agregarElemn(fotoDes);
-                        informacion.agregarElemn(personas);
-                        informacion.agregarElemn(lugar);
-                        for(String sts : str){
-                            if(informacion.contains(sts)){
-                                Imagen imtmp=imag;
-                                alb.agregarFotos(imtmp);
+        Album alb = new Album("tmp", "null", false);
+        Album albumselec = null;
+        String[] str = buscar.getText().toLowerCase().split(" ");
+        String choiBus=busquedasBox.getValue();
+        
+        if (busqueda.equals("buscarAlbum")) {
+
+            for (Album album : albumes) {
+                if (album.getNombre().equals(albumAbierto.getText())) {
+                    albumselec = album;
+                    if (!album.getFotos().isEmpty()) {
+                        for (Imagen imag : album.getFotos()) {
+                            ArrayList<String> informacion = new ArrayList<>();
+                            String[] fotoDes = imag.getDescripcion().toLowerCase().split(" ");
+                            String[] personas = imag.getPersonas().toLowerCase().split(",");
+                            String[] lugar = imag.getLugar().toLowerCase().split(" ");
+                            String[] Hashtag=imag.getHashtags().split(",");
+                            if(choiBus.equals("Todo")){
+                                informacion.addLast(String.valueOf(imag.getFecha().getDayOfMonth()));
+                                informacion.addLast(ParseFecha(imag.getFecha().getMonthValue()));
+                                informacion.addLast(String.valueOf(imag.getFecha().getYear()));
+                                informacion.addLast(imag.getCamara());
+                                informacion.addLast(imag.getReaccion().toString().toLowerCase());
+                                informacion.agregarElemn(fotoDes);
+                                informacion.agregarElemn(personas);
+                                informacion.agregarElemn(lugar);
+                                informacion.agregarElemn(Hashtag);
                             }
+                            if(choiBus.equals("Fecha")){
+                                informacion.addLast(String.valueOf(imag.getFecha().getDayOfMonth()));
+                                informacion.addLast(ParseFecha(imag.getFecha().getMonthValue()));
+                                informacion.addLast(String.valueOf(imag.getFecha().getYear()));
+                            }
+                            if(choiBus.equals("Lugar")){
+                                informacion.agregarElemn(lugar);
+                            }
+                            if(choiBus.equals("Personas")){
+                                 informacion.agregarElemn(personas);   
+                            }
+                            if(choiBus.equals("Persona, Lugar")){
+                                informacion.agregarElemn(personas);
+                                informacion.agregarElemn(lugar);
+                            }
+                            if(choiBus.equals("Hashtag")){
+                                informacion.agregarElemn(Hashtag);
+                            }
+                            if(choiBus.equals("Reaccion")){
+                                informacion.addLast(imag.getReaccion().toString().toLowerCase());
+                            }
+                            if(choiBus.equals("Camara")){
+                                informacion.addLast(imag.getCamara());
+                            }
+                            for (String sts : str) {
+                                if (informacion.contains(sts)) {
+                                    if (!alb.getFotos().contains(imag)) {
+                                        Imagen imtmp = imag;
+                                        alb.agregarFotos(imtmp);
+                                    }
+
+                                }
+                            }
+
                         }
-                       
                     }
                 }
+
             }
-            
+
+
             albumes.add(alb);
             cargarFotosPane(alb.getNombre());
             albumes.remove(alb);
@@ -388,32 +443,47 @@ public class PrimaryController implements Initializable {
             
         }
         if(busqueda.equals("buscarGlobal")){
-            System.out.println("Hola");
+            
             for(Album album: albumes){
-                for (Imagen imag : album.getFotos()) {
-                    ArrayList<String> informacion = new ArrayList<>();
-                    String[] fotoDes = imag.getDescripcion().toLowerCase().split(" ");
-                    String[] personas = imag.getPersonas().toLowerCase().split(",");
-                    String[] lugar = imag.getLugar().toLowerCase().split(" ");
-                    informacion.addLast(imag.getFecha().toString());
-                    informacion.agregarElemn(fotoDes);
-                    informacion.agregarElemn(personas);
-                    informacion.agregarElemn(lugar);
-                    for (String sts : str) {
-                        if (informacion.contains(sts)) {
-                            Imagen imtmp = imag;
-                            alb.agregarFotos(imtmp);
+                if(!album.getFotos().isEmpty()){
+                    for (Imagen imag : album.getFotos()) {
+                        ArrayList<String> informacion = new ArrayList<>();
+                        String[] fotoDes = imag.getDescripcion().toLowerCase().split(" ");
+                        String[] personas = imag.getPersonas().toLowerCase().split(",");
+                        String[] lugar = imag.getLugar().toLowerCase().split(" ");
+                        String[] Hashtag = imag.getHashtags().split(",");
+                        informacion.addLast(String.valueOf(imag.getFecha().getDayOfMonth()));
+                        informacion.addLast(ParseFecha(imag.getFecha().getMonthValue()));
+                        informacion.addLast(String.valueOf(imag.getFecha().getYear()));
+                        informacion.addLast(imag.getCamara());
+                        informacion.addLast(imag.getReaccion().toString().toLowerCase());
+                        informacion.agregarElemn(fotoDes);
+                        informacion.agregarElemn(personas);
+                        informacion.agregarElemn(lugar);
+                        informacion.agregarElemn(Hashtag);
+                        
+                        for (String sts : str) {
+                            if (informacion.contains(sts)) {
+                                Imagen imtmp = imag;
+                                alb.agregarFotos(imtmp);
+                            }
                         }
-                    }
 
+                    }
                 }
-            }
+                    
+                }
 
             albumes.add(alb);
             cargarFotosPane(alb.getNombre());
             albumes.remove(alb);
         }
-        buscar.clear();
+        
+    }
+    
+    public static String ParseFecha(int fecha){
+        String[] mes={"","enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"};
+        return mes[fecha];
     }
     
     
@@ -484,6 +554,7 @@ public class PrimaryController implements Initializable {
         desactivarEntornoFoto(true);
         buscarBoton.setVisible(false);
         buscar.setVisible(false);
+        busquedasBox.setVisible(false);
        
         
        
@@ -542,16 +613,26 @@ public class PrimaryController implements Initializable {
             controlador.getAlbumes().setValue(Imagen.getContent().getNombreAlbum());
             controlador.getImportar().setText("Guardar");
             controlador.getPath().setEditable(false);
+            controlador.getCamara().setText(Imagen.getContent().getCamara());
+            controlador.getHashtags().setText(Imagen.getContent().getHashtags());
+            controlador.setReaccion(Imagen.getContent().getReaccion());
+            controlador.getComentario().setText(Imagen.getContent().getComentario());
+            
             Scene  scene = new Scene(root);
             Stage stage= new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
             if(controlador.getAlbum().equals(Imagen.getContent().getNombreAlbum())){
+                
                 Imagen.getContent().setDescripcion(controlador.getTxtDescripcion());
                 Imagen.getContent().setFecha(controlador.getFecha());
+                Imagen.getContent().setCamara(controlador.getCamara().getText());
+                Imagen.getContent().setHashtags(controlador.getHashtags().getText());
+                Imagen.getContent().setReaccion(controlador.getReaccion());
                 Imagen.getContent().setLugar(controlador.getTxtLugar());
                 Imagen.getContent().setPersonas(controlador.getTxtPersonas());
+                Imagen.getContent().setComentario(controlador.getComentario().getText());
                 System.out.println("No moviste la foto solo editaste");
                 
             }else{
@@ -560,6 +641,11 @@ public class PrimaryController implements Initializable {
                 Imagen.getContent().setLugar(controlador.getTxtLugar());
                 Imagen.getContent().setNombreAlbum(controlador.getAlbum());
                 Imagen.getContent().setPersonas(controlador.getTxtPersonas());
+                Imagen.getContent().setCamara(controlador.getCamara().getText());
+                Imagen.getContent().setHashtags(controlador.getHashtags().getText());
+                Imagen.getContent().setReaccion(controlador.getReaccion());
+                Imagen.getContent().setComentario(controlador.getComentario().getText());
+
                 Imagen image=null;
                 for (Album album : albumes) {
                     if(album.getFotos().contains(Imagen.getContent())){
@@ -611,16 +697,17 @@ public class PrimaryController implements Initializable {
             if( (controlador.getFile()==null || controlador.getTxtDescripcion()==null || controlador.getTxtLugar()==null ||controlador.getFecha()==null ||controlador.getTxtPersonas()==null || controlador.getAlbum()==null) ){
                 
             }else{
-                Imagen imagen= new Imagen(controlador.getFile(),controlador.getTxtDescripcion(),controlador.getTxtLugar(),controlador.getFecha(),controlador.getTxtPersonas(),controlador.getAlbum());
-                for(Album album : albumes){
-                if(album.getNombre().equals(imagen.getNombreAlbum())){
-                    album.agregarFotos(imagen);
-                    guardarAlbumRegistro(album);
-                    cargarFotosPane(album.getNombre());
-                    albumAbierto.setText(album.getNombre());
-                    
-                }
+                Imagen imagen= new Imagen(controlador.getFile(),controlador.getTxtDescripcion(),controlador.getTxtLugar(),controlador.getFecha(),controlador.getTxtPersonas(),controlador.getAlbum(),controlador.getReaccion(),controlador.getCamara().getText(),controlador.getHashtags().getText(),controlador.getComentario().getText());
                 
+                for(Album album : albumes){
+                    if (album.getNombre().equals(imagen.getNombreAlbum())) {
+                        album.agregarFotos(imagen);
+                        guardarAlbumRegistro(album);
+                        cargarFotosPane(album.getNombre());
+                        albumAbierto.setText(album.getNombre());
+
+                    }
+
             }
             }
             
