@@ -113,6 +113,11 @@ public class Imagen implements Serializable{
         return personas;
     }
 
+    public void setPersonas(String personas) {
+        this.personas = personas;
+    }
+    
+
     public void añadirPersona(String persona){
         this.personas+=","+persona;
     }

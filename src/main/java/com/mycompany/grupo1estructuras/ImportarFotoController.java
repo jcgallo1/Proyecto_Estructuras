@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -56,6 +59,18 @@ public class ImportarFotoController implements Initializable {
     private ComboBox<String> albumes;
     @FXML
     private Text txtInicio;
+    @FXML
+    private Text tDescripcion;
+    @FXML
+    private Text tLugar;
+    @FXML
+    private Text tFecha;
+    @FXML
+    private Text tPersona;
+    @FXML
+    private Text tImport;
+    @FXML
+    private Text tFotof;
     /**
      * Initializes the controller class.
      * @param url
@@ -63,7 +78,14 @@ public class ImportarFotoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        txtPersonas.setText("");
+        txtDescripcion.setText("");
+        path.setText("");
+        txtLugar.setText("");
+        fecha.setValue(LocalDate.now());
+        tImport.setVisible(false);
+        path.setEditable(false);
+        tFotof.setVisible(false);
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("primary.fxml"));
             Parent root= loader.load();
@@ -91,8 +113,36 @@ public class ImportarFotoController implements Initializable {
     
     @FXML
     public void importaFoto(){
-        Stage stage=(Stage) this.importar.getScene().getWindow();
-        stage.close();
+        ChronoLocalDate dt= LocalDate.from(ZonedDateTime.now());
+        tImport.setVisible(false);
+        tFotof.setVisible(false);
+        tDescripcion.setFill(Color.BLACK);
+        tLugar.setFill(Color.BLACK);
+        tImport.setFill(Color.BLACK);
+        tFecha.setFill(Color.BLACK);
+        if(txtDescripcion.getText().equals("")){
+            tDescripcion.setFill(Color.RED);
+        }
+        if(txtLugar.getText().equals("")){
+            tLugar.setFill(Color.RED);
+        }
+        if(path.getText().equals("")){
+            tImport.setFill(Color.RED);
+            tImport.setVisible(true);
+        }
+        if(fecha.getValue().isAfter(dt)){
+            tFotof.setVisible(true);
+            tFotof.setText("¿Foto del futuro? "+fecha.getValue().toString());
+            tFotof.setFill(Color.RED);
+            tFecha.setFill(Color.RED);
+            
+        }
+        
+        if(!(path.getText().equals("")||txtLugar.getText().equals("")||txtDescripcion.getText().equals("")||fecha.getValue().isAfter(dt))){
+            Stage stage=(Stage) this.importar.getScene().getWindow();
+            stage.close();
+        }
+        fecha.setValue(LocalDate.now());
     }
 
     public Button getBotonBuscar() {
@@ -114,6 +164,10 @@ public class ImportarFotoController implements Initializable {
 
     public void setPath(String path) {
         this.path.setText(path);
+    }
+
+    public TextField getPath() {
+        return path;
     }
 
     public void setBotonBuscar(Button botonBuscar) {
@@ -151,9 +205,17 @@ public class ImportarFotoController implements Initializable {
     public String getTxtDescripcion() {
         return txtDescripcion.getText();
     }
+
+    public ComboBox<String> getAlbumes() {
+        return albumes;
+    }
     
     public String getTxtLugar() {
         return txtLugar.getText();
+    }
+
+    public Button getImportar() {
+        return importar;
     }
    
     

@@ -27,19 +27,22 @@ public class Album implements Serializable{
     
     //crea un album localmente en la carpeta picspol en el disco local c;
     
-    public Album(String nombre, String descripcion) {
+    public Album(String nombre, String descripcion,Boolean valor) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fotos=new CircularLinkedList<>();
-        String ruta = "src/main/resources/Albunes/"+nombre;
-        File D = new File(ruta);
-        boolean D1 = D.mkdir();
-        if (D1) {
-            System.out.println("Directory is created successfully");
-        } else {
-            System.out.println("Error el album ya existe!");
+        if(valor){
+            String ruta = "src/main/resources/Albunes/" + nombre;
+            File D = new File(ruta);
+            boolean D1 = D.mkdir();
+            if (D1) {
+                System.out.println("Directory is created successfully");
+            } else {
+                System.out.println("Error el album ya existe!");
+            }
+            System.out.println(D1);
         }
-        System.out.println(D1);
+        
         
     }
     

@@ -18,7 +18,6 @@ public class ArrayList<E> implements List<E>{
     private boolean isFull(){
         return effectiveSize==capacity;
     }
-    
     private void addCapacity(){
         capacity += capacity/2;
         E[] new_array = (E[]) (new Object[capacity]);
@@ -30,7 +29,12 @@ public class ArrayList<E> implements List<E>{
     public ArrayList(){
         this(18);
     }
-    
+    public void agregarElemn(E[] list){
+        for(E parts: list){
+            this.addLast(parts);
+        }
+        
+    }
     @Override
     public boolean addFirst(E e) {
         

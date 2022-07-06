@@ -16,17 +16,19 @@
       <Text layoutX="237.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informacion de la foto" />
       <TextField fx:id="txtDescripcion" layoutX="122.0" layoutY="149.0" prefHeight="25.0" prefWidth="398.0" />
       <TextField fx:id="txtLugar" layoutX="122.0" layoutY="195.0" prefHeight="25.0" prefWidth="398.0" />
-      <Text layoutX="48.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripcion:" />
-      <Text layoutX="80.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lugar" />
+      <Text fx:id="tDescripcion" layoutX="48.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripcion:" />
+      <Text fx:id="tLugar" layoutX="80.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lugar" />
       <DatePicker fx:id="fecha" layoutX="122.0" layoutY="236.0" />
-      <Text layoutX="79.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="fecha:" />
+      <Text fx:id="tFecha" layoutX="79.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="fecha:" />
       <TextField fx:id="txtPersonas" layoutX="122.0" layoutY="274.0" />
-      <Text layoutX="61.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="personas:" />
+      <Text fx:id="tPersona" layoutX="61.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="personas:" />
       <Text layoutX="284.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mas de una persona separar con &quot;,&quot;" />
       <Button fx:id="importar" layoutX="494.0" layoutY="334.0" mnemonicParsing="false" onAction="#importaFoto" text="Importar" />
       <ComboBox fx:id="albumes" layoutX="331.0" layoutY="334.0" prefWidth="150.0" promptText="seleccione Album">
          <padding>
             <Insets left="10.0" />
          </padding></ComboBox>
+      <Text fx:id="tImport" layoutX="383.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;--- importe una foto" />
+      <Text fx:id="tFotof" layoutX="320.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </Pane>
