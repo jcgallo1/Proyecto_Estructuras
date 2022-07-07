@@ -22,17 +22,19 @@ import java.util.Date;
 public class Album implements Serializable{
     String nombre;
     String descripcion;
+    String user;
     CircularLinkedList<Imagen> fotos;
     
     
     //crea un album localmente en la carpeta picspol en el disco local c;
     
-    public Album(String nombre, String descripcion,Boolean valor) {
+    public Album(String nombre, String descripcion,Boolean valor,String user) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fotos=new CircularLinkedList<>();
+        this.user=user;
         if(valor){
-            String ruta = "src/main/resources/Albunes/" + nombre;
+            String ruta = "src/main/resources/Albunes/"+user+"/"+ nombre;
             File D = new File(ruta);
             boolean D1 = D.mkdir();
             if (D1) {
@@ -55,13 +57,17 @@ public class Album implements Serializable{
         return false;
         
     }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
     
    
     
     public static void guardarAlbumRegistro(Album album){
         FileOutputStream fout = null;
         try {
-            fout = new FileOutputStream("src/main/resources/Albunes/"+album.getNombre()+".ser");
+            fout = new FileOutputStream("src/main/resources/Albunes/"+album.user+"/"+album.getNombre()+".ser");
             ObjectOutputStream out = new ObjectOutputStream(fout);
             out.writeObject(album);
             out.flush();

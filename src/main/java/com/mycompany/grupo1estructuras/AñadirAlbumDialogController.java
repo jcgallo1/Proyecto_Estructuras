@@ -37,8 +37,6 @@ public class AñadirAlbumDialogController implements Initializable {
     @FXML
     private TextField descripcionA;
     
-    private Album nuevoA;
-    
     private ObservableList<Album> albumes;
     @FXML
     private Text campoIngresarnombre;
@@ -65,7 +63,7 @@ public class AñadirAlbumDialogController implements Initializable {
     //BOTON CREAR ALBUM 
     
     @FXML
-    public Album crearAlbum(){
+    public void crearAlbum(){
         boolean valor=true;
         campoIngresarnombre.setVisible(false);
         campoIngresarDescripcion.setVisible(false);
@@ -77,9 +75,9 @@ public class AñadirAlbumDialogController implements Initializable {
             campoIngresarnombre.setVisible(true);
         }
         if(!(descripcionA.getText().equals("") || TxtNuevoAlbum.getText().equals(""))){
-            Album nuevoA = new Album(TxtNuevoAlbum.getText(), descripcionA.getText(),true);
+            //Album nuevoA = new Album(TxtNuevoAlbum.getText(), descripcionA.getText(),true,"tmp");
             for(Album album : albumes){
-                if(album.getNombre().equals(nuevoA.getNombre())){
+                if(album.getNombre().equals(TxtNuevoAlbum.getText())){
                    campoIngresarnombre.setVisible(true);
                    campoIngresarnombre.setText("Ya existe!!");
                    valor=false;
@@ -97,15 +95,12 @@ public class AñadirAlbumDialogController implements Initializable {
                 stage.close();
             }
             
-            this.nuevoA = nuevoA;
+            //this.nuevoA = nuevoA;
 
         }
             
             
         
-        
-        
-        return nuevoA;
     }
     
     @FXML
@@ -115,10 +110,7 @@ public class AñadirAlbumDialogController implements Initializable {
         Stage stage=(Stage) this.crearAlbum.getScene().getWindow();
         stage.close();
     }
-    public Album getNuevoA() {
-        
-        return nuevoA;
-    }
+   
 
     public Text getTxtAlbum() {
         return txtAlbum;

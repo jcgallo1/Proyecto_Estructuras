@@ -111,22 +111,22 @@ public class PrimaryController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /*
+        
         try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("IniciarSesionController.fxml"));
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("IniciarSesion.fxml"));
             Parent root = loader.load();
-            ImportarFotoController controlador = loader.getController();
+            IniciarSesionController controlador = loader.getController();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
-
+            user=controlador.getUser();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        */
-        String ruta = "src/main/resources/Albunes/";
+        
+        String ruta = "src/main/resources/Albunes/"+user.getNick();
         File D = new File(ruta);
         boolean D1 = D.mkdir();
         if (D1) {
@@ -219,7 +219,8 @@ public class PrimaryController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
-            Album nuevoA= controlador.getNuevoA();
+            Album nuevoA= new Album(controlador.getTxtNuevoAlbum().getText(),controlador.getDescripcionA().getText(),true,user.getNick());
+           
             System.out.println(nuevoA.getNombre());
             if(nuevoA != null){
                 if(!this.albumes.contains(nuevoA)){
@@ -274,12 +275,11 @@ public class PrimaryController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
-            Album nuevoA= controlador.getNuevoA();
+            Album nuevoA= new Album(controlador.getTxtNuevoAlbum().getText(),controlador.getDescripcionA().getText(),true,user.getNick());
             for(Album album: albumes){
                 if(listViewAlbum.getSelectionModel().getSelectedItem().equals(album.getNombre())){
-                    System.out.println(album.getNombre());
-                    File directorio = new File("src/main/resources/Albunes/" + album.getNombre());
-                    File albumSer = new File("src/main/resources/Albunes/" + album.getNombre() + ".ser");
+                    File directorio = new File("src/main/resources/Albunes/"+user.getNick()+ "/" + album.getNombre());
+                    File albumSer = new File("src/main/resources/Albunes/"+user.getNick()+ "/" + album.getNombre() + ".ser");
                     if (directorio.delete()) {
                         System.out.println("Eliminado directorio");
                     } else {
@@ -315,8 +315,8 @@ public class PrimaryController implements Initializable {
         for(Album al : albumes){         
             if(al.getNombre().equals(nombreAlbum)){
                 
-                File directorio = new File("src/main/resources/Albunes/" + al.getNombre());
-                File albumSer = new File("src/main/resources/Albunes/" + al.getNombre() + ".ser");
+                File directorio = new File("src/main/resources/Albunes/"+user.getNick()+ "/" + al.getNombre());
+                File albumSer = new File("src/main/resources/Albunes/"+user.getNick()+ "/" + al.getNombre() + ".ser");
                  if (directorio.delete()) {
                         System.out.println("Eliminado directorio");
                     } else {
@@ -342,7 +342,7 @@ public class PrimaryController implements Initializable {
     public void cargarAlbumRegistro(){
         albumes.clear();
         ObjectInputStream in=null;
-        File folder=new File("src/main/resources/Albunes/");
+        File folder=new File("src/main/resources/Albunes/"+user.getNick()+ "/");
         try {
             for (File file : folder.listFiles()) {
                 if(!file.isDirectory()){
@@ -367,7 +367,7 @@ public class PrimaryController implements Initializable {
     @FXML
     public void busquedaAlbum(){
         
-        Album alb = new Album("tmp", "null", false);
+        Album alb = new Album("tmp", "null", false,user.getNick());
         Album albumselec = null;
         String[] str = buscar.getText().toLowerCase().split(" ");
         String choiBus=busquedasBox.getValue();
@@ -589,7 +589,7 @@ public class PrimaryController implements Initializable {
         for (Album album : albumes) {
             if (album.getNombre().equals(nombreAlbum)) {
                 album.getFotos().removerNodo(Imagen);
-                File fotoser = new File("src/main/resources/Albunes/" + album.getNombre()+"/" +Imagen.getContent().getNombreFoto() + ".ser");
+                File fotoser = new File("src/main/resources/Albunes/"+user.getNick()+ "/" + album.getNombre()+"/" +Imagen.getContent().getNombreFoto() + ".ser");
                 System.out.println(fotoser.delete());
                 guardarAlbumRegistro(album);
             }
@@ -650,7 +650,7 @@ public class PrimaryController implements Initializable {
                 for (Album album : albumes) {
                     if(album.getFotos().contains(Imagen.getContent())){
                         System.out.println("Se borro la imagen del album");
-                        File fotoser = new File("src/main/resources/Albunes/" + album.getNombre() + "/" + Imagen.getContent().getNombreFoto() + ".ser");
+                        File fotoser = new File("src/main/resources/Albunes/"+user.getNick() + album.getNombre() + "/" + Imagen.getContent().getNombreFoto() + ".ser");
                         System.out.println(fotoser.delete());
                         image = album.getFotos().removerNodo(Imagen);
                         guardarAlbumRegistro(album);

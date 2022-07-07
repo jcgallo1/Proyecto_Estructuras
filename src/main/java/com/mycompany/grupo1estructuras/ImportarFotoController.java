@@ -103,6 +103,7 @@ public class ImportarFotoController implements Initializable {
     private Pane angry;
     @FXML
     private TextField camara;
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -118,18 +119,20 @@ public class ImportarFotoController implements Initializable {
         tImport.setVisible(false);
         path.setEditable(false);
         tFotof.setVisible(false);
+        
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("primary.fxml"));
         try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("primary.fxml"));
             Parent root= loader.load();
-            PrimaryController controlador= loader.getController();
-            for(Album album : controlador.getAlbumes()){
-                albumes.getItems().add(album.getNombre());
-            }
-            
-            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        PrimaryController controlador= loader.getController();
+        for(Album album : controlador.getAlbumes()){
+            albumes.getItems().add(album.getNombre());
+        }
+        
+        
+       
         
         angry.setOnMouseClicked(e->{
             reaccion=reaccion.angry;

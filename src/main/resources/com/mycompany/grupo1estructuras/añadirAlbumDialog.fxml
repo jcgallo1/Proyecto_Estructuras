@@ -6,23 +6,32 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="335.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.AñadirAlbumDialogController">
+<AnchorPane id="AnchorPane" prefHeight="335.0" prefWidth="558.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.AñadirAlbumDialogController">
    <children>
       <TextField fx:id="TxtNuevoAlbum" layoutX="54.0" layoutY="114.0" prefHeight="23.0" prefWidth="332.0" />
-      <Text layoutX="54.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingrese un nombre: " />
-      <Text layoutX="54.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripcion" />
+      <Text layoutX="54.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingrese un nombre: ">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></Text>
+      <Text layoutX="54.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripcion">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></Text>
       <TextField fx:id="descripcionA" layoutX="54.0" layoutY="190.0" prefHeight="33.0" prefWidth="346.0" />
-      <Text fx:id="txtAlbum" layoutX="210.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AÑADIR ALBUM" />
-      <Button fx:id="crearAlbum" layoutX="461.0" layoutY="280.0" mnemonicParsing="false" onAction="#crearAlbum" text="aceptar" />
-      <Button fx:id="cancelar" layoutX="380.0" layoutY="280.0" mnemonicParsing="false" onAction="#cerrar" text="cancelar" />
+      <Text fx:id="txtAlbum" layoutX="169.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AÑADIR ALBUM">
+         <font>
+            <Font name="High Tower Text" size="22.0" />
+         </font></Text>
+      <Button fx:id="crearAlbum" layoutX="461.0" layoutY="280.0" mnemonicParsing="false" onAction="#crearAlbum" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="aceptar" />
+      <Button fx:id="cancelar" layoutX="380.0" layoutY="280.0" mnemonicParsing="false" onAction="#cerrar" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="cancelar" />
       <Text fx:id="campoIngresarnombre" fill="RED" layoutX="410.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campo vacio!">
          <font>
-            <Font size="15.0" />
+            <Font name="Georgia" size="15.0" />
          </font>
       </Text>
       <Text fx:id="campoIngresarDescripcion" fill="RED" layoutX="410.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campo vacio!">
          <font>
-            <Font size="15.0" />
+            <Font name="Georgia" size="15.0" />
          </font>
       </Text>
    </children>

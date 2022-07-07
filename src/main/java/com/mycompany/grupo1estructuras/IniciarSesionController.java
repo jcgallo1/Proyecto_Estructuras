@@ -52,6 +52,8 @@ public class IniciarSesionController implements Initializable {
         titulotx.setText("REGISTRAR");
         botonRegistrar.setVisible(false);
         botonIngresar.setText("Crear");
+        Usuario user=new Usuario(campoUser.getText(),campoContra.getText());
+        
     }
     
     public void iniciarSesion() throws IOException{
@@ -59,14 +61,8 @@ public class IniciarSesionController implements Initializable {
         Boolean iniciar=cargarUsuario(user);
         if(iniciar){
             this.user=user;
-             Stage stage = (Stage) this.botonIngresar.getScene().getWindow();
+            Stage stage=(Stage) this.botonRegistrar.getScene().getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("IniciarSesionController.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root,911,565);
-            Stage stasge = new Stage();
-            stasge.setScene(scene);
-            stasge.showAndWait();
         }else{
             titulotx.setText("Usuario no encontrado");
         }
