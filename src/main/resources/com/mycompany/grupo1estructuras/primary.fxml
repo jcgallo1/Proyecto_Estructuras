@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="911.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.PrimaryController">
+<BorderPane fx:id="panel" prefHeight="565.0" prefWidth="911.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.PrimaryController">
    <top>
       <MenuBar fx:id="menubar" prefHeight="20.0" prefWidth="598.0" BorderPane.alignment="CENTER">
         <menus>
@@ -70,9 +70,9 @@
                      <font>
                         <Font name="Berlin Sans FB" size="32.0" />
                      </font></Text>
-                  <ScrollPane fx:id="scrollImagen" layoutY="51.0" prefHeight="409.0" prefWidth="633.0">
+                  <ScrollPane fx:id="scrollImagen" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="633.0">
                      <content>
-                        <TilePane fx:id="imagenesPane" prefHeight="406.0" prefWidth="624.0" />
+                        <TilePane fx:id="imagenesPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
                      </content>
                   </ScrollPane>
                   <TextField fx:id="buscar" layoutX="389.0" layoutY="9.0" prefHeight="31.0" prefWidth="224.0" />
@@ -87,6 +87,11 @@
             <Button fx:id="botonSiguiente" layoutX="622.0" layoutY="12.0" mnemonicParsing="false" onAction="#siguienteFoto" prefHeight="35.0" prefWidth="71.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="siguiente" />
             <Button fx:id="botonAtras" layoutX="543.0" layoutY="12.0" mnemonicParsing="false" onAction="#anteriorFoto" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="atras" />
             <Button fx:id="regresar" layoutX="138.0" layoutY="8.0" mnemonicParsing="false" onAction="#regresar" prefHeight="34.0" prefWidth="68.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 25;" text="regresar" />
+            <Button fx:id="Salir" layoutX="811.0" layoutY="8.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="34.0" prefWidth="68.0" style="-fx-background-color: white; -fx-border-color: red; -fx-border-radius: 25;" text="cerrar" textFill="RED">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </bottom>

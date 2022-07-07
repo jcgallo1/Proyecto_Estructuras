@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.scene.image.Image;
 
 /**
  * JavaFX App
@@ -19,8 +20,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"));
+        stage.setResizable(false);
         stage.setScene(scene);
-        stage.setTitle("PicsPol");
+        stage.setTitle("PICSPOL");
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("Imagenes/icon2.png")));
         stage.show();
     }
 

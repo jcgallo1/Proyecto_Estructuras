@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -104,6 +106,8 @@ public class PrimaryController implements Initializable {
     private String busqueda;
     @FXML
     private ComboBox<String> busquedasBox;
+    @FXML
+    private Button Salir;
     /**
      * Initializes the controller class.
      * @param url
@@ -112,21 +116,7 @@ public class PrimaryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("IniciarSesion.fxml"));
-            Parent root = loader.load();
-            IniciarSesionController controlador = loader.getController();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.showAndWait();
-            user=controlador.getUser();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        
-        String ruta = "src/main/resources/Albunes/"+user.getNick();
+        String ruta = "src/main/resources/Albunes/";
         File D = new File(ruta);
         boolean D1 = D.mkdir();
         if (D1) {
@@ -135,6 +125,32 @@ public class PrimaryController implements Initializable {
             System.out.println("Error el album ya existe!");
         }
         System.out.println(D1);
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("IniciarSesion.fxml"));
+            Parent root = loader.load();
+            IniciarSesionController controlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.getIcons().add(new Image(App.class.getResourceAsStream("Imagenes/icon2.png")));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+            user=controlador.getUser();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+        String ruta2 = "src/main/resources/Albunes/"+user.getNick();
+        File D2 = new File(ruta2);
+        boolean D3 = D2.mkdir();
+        if (D3) {
+            System.out.println("Directory is created successfully");
+        } else {
+            System.out.println("Error el album ya existe!");
+        }
+        System.out.println(D2);
         this.albumes = FXCollections.observableArrayList();
         cargarAlbumRegistro();
         cargarAlbum();
@@ -185,7 +201,13 @@ public class PrimaryController implements Initializable {
         busquedasBox.getItems().add("Persona, Lugar");
 
 
-    }   
+    }
+    
+    @FXML
+    public void cerrarSesion(){
+        Platform.exit();
+        System.exit(0);
+    }
     // SECCION DE ALBUM
     
     
@@ -603,6 +625,7 @@ public class PrimaryController implements Initializable {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("ImportarFoto.fxml"));
             Parent root= loader.load();
             ImportarFotoController controlador= loader.getController();
+            controlador.initAtribut(albumes);
             controlador.getBotonBuscar().setVisible(false);
             controlador.getTxtLugarM().setText(Imagen.getContent().getLugar());
             controlador.getTxtPersonasM().setText(Imagen.getContent().getPersonas());
@@ -650,7 +673,7 @@ public class PrimaryController implements Initializable {
                 for (Album album : albumes) {
                     if(album.getFotos().contains(Imagen.getContent())){
                         System.out.println("Se borro la imagen del album");
-                        File fotoser = new File("src/main/resources/Albunes/"+user.getNick() + album.getNombre() + "/" + Imagen.getContent().getNombreFoto() + ".ser");
+                        File fotoser = new File("src/main/resources/Albunes/"+user.getNick()+ "/"+ album.getNombre() + "/" + Imagen.getContent().getNombreFoto() + ".ser");
                         System.out.println(fotoser.delete());
                         image = album.getFotos().removerNodo(Imagen);
                         guardarAlbumRegistro(album);
@@ -688,16 +711,21 @@ public class PrimaryController implements Initializable {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("ImportarFoto.fxml"));
             Parent root= loader.load();
             ImportarFotoController controlador= loader.getController();
+            controlador.initAtribut(albumes);
             Scene  scene = new Scene(root);
             Stage stage= new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+            System.out.println(controlador.getCamara().getText());
+            System.out.println(controlador.getComentario().getText());
+            System.out.println(controlador.getReaccion());
+            System.out.println(controlador.getHashtags().getText());
             
             if( (controlador.getFile()==null || controlador.getTxtDescripcion()==null || controlador.getTxtLugar()==null ||controlador.getFecha()==null ||controlador.getTxtPersonas()==null || controlador.getAlbum()==null) ){
                 
             }else{
-                Imagen imagen= new Imagen(controlador.getFile(),controlador.getTxtDescripcion(),controlador.getTxtLugar(),controlador.getFecha(),controlador.getTxtPersonas(),controlador.getAlbum(),controlador.getReaccion(),controlador.getCamara().getText(),controlador.getHashtags().getText(),controlador.getComentario().getText());
+                Imagen imagen= new Imagen(controlador.getFile(),controlador.getTxtDescripcion(),controlador.getTxtLugar(),controlador.getFecha(),controlador.getTxtPersonas(),controlador.getAlbum(),controlador.getReaccion(),controlador.getCamara().getText(),controlador.getHashtags().getText(),controlador.getComentario().getText(),user.getNick());
                 
                 for(Album album : albumes){
                     if (album.getNombre().equals(imagen.getNombreAlbum())) {

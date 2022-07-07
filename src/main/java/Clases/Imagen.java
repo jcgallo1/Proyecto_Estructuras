@@ -31,11 +31,12 @@ public class Imagen implements Serializable{
     private String Camara;
     private String hashtags;
     private String comentario;
+    private String User;
     //agregue un nuevo atributo tipo file que son las Imagen jpg para asociarlas luego con la descripcion
     public Imagen(File foto,String descripcion, String lugar, 
                 LocalDate fecha, 
                 String persona, 
-                String nombreAlbum,reacciones reaccion,String camara,String hashtag,String comentario) {
+                String nombreAlbum,reacciones reaccion,String camara,String hashtag,String comentario,String user) {
         this.foto= foto;
         this.descripcion = descripcion;
         this.lugar = lugar;
@@ -46,7 +47,8 @@ public class Imagen implements Serializable{
         this.Camara=camara;
         this.hashtags=hashtag;
         this.comentario=comentario;
-        guardarFotoRegistro(this);
+        this.User=user;
+        guardarFotoRegistro(this,user);
         
         
     }
@@ -54,10 +56,10 @@ public class Imagen implements Serializable{
     
     
     
-    public static void guardarFotoRegistro(Imagen imagen){
+    public static void guardarFotoRegistro(Imagen imagen, String user){
         FileOutputStream fout = null;
         try {
-            fout = new FileOutputStream("src/main/resources/Albunes/"+imagen.getNombreAlbum()+"/"+imagen.getNombreFoto()+".ser");
+            fout = new FileOutputStream("src/main/resources/Albunes/"+user+"/"+imagen.getNombreAlbum()+"/"+imagen.getNombreFoto()+".ser");
             ObjectOutputStream out = new ObjectOutputStream(fout);
             out.writeObject(imagen);
             out.flush();

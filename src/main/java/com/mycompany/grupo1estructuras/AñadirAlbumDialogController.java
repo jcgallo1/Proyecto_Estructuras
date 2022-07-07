@@ -61,7 +61,7 @@ public class AñadirAlbumDialogController implements Initializable {
     }
     
     //BOTON CREAR ALBUM 
-    
+    //verifica que el album exista, no sea igual a otro album, y que no tenga nombres nulos
     @FXML
     public void crearAlbum(){
         boolean valor=true;
@@ -75,7 +75,7 @@ public class AñadirAlbumDialogController implements Initializable {
             campoIngresarnombre.setVisible(true);
         }
         if(!(descripcionA.getText().equals("") || TxtNuevoAlbum.getText().equals(""))){
-            //Album nuevoA = new Album(TxtNuevoAlbum.getText(), descripcionA.getText(),true,"tmp");
+            
             for(Album album : albumes){
                 if(album.getNombre().equals(TxtNuevoAlbum.getText())){
                    campoIngresarnombre.setVisible(true);
@@ -94,15 +94,14 @@ public class AñadirAlbumDialogController implements Initializable {
                 Stage stage = (Stage) this.crearAlbum.getScene().getWindow();
                 stage.close();
             }
-            
-            //this.nuevoA = nuevoA;
-
+         
         }
             
             
         
     }
     
+    //CIERRA LA VENTANA AÑADIR ALBUM
     @FXML
     public void cerrar(ActionEvent event){
         

@@ -11,6 +11,7 @@ import static Clases.Usuario.guardarUsuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -48,6 +49,7 @@ public class IniciarSesionController implements Initializable {
     }    
     
     
+    @FXML
     public void crearUser(){
         titulotx.setText("REGISTRAR");
         botonRegistrar.setVisible(false);
@@ -56,6 +58,7 @@ public class IniciarSesionController implements Initializable {
         
     }
     
+    @FXML
     public void iniciarSesion() throws IOException{
         Usuario user=new Usuario(campoUser.getText(),campoContra.getText());
         Boolean iniciar=cargarUsuario(user);
@@ -77,5 +80,8 @@ public class IniciarSesionController implements Initializable {
     public Usuario getUser() {
         return user;
     }
-    
+    public void cerrarSesion(){
+        Platform.exit();
+        System.exit(0);
+    }
 }

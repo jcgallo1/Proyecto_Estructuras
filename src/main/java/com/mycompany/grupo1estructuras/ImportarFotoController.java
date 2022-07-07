@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +54,6 @@ public class ImportarFotoController implements Initializable {
     private DatePicker fecha;
     @FXML
     private TextField txtPersonas;
-    
     
     private Imagen foto;
     @FXML
@@ -104,6 +104,8 @@ public class ImportarFotoController implements Initializable {
     @FXML
     private TextField camara;
     
+    private ObservableList<Album> albume;
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -115,11 +117,15 @@ public class ImportarFotoController implements Initializable {
         txtDescripcion.setText("");
         path.setText("");
         txtLugar.setText("");
+        comentario.setText("");
+        hashtags.setText("");
+        camara.setText("");
         fecha.setValue(LocalDate.now());
         tImport.setVisible(false);
         path.setEditable(false);
         tFotof.setVisible(false);
         
+        /*
         FXMLLoader loader = new FXMLLoader(App.class.getResource("primary.fxml"));
         try {
             Parent root= loader.load();
@@ -131,7 +137,7 @@ public class ImportarFotoController implements Initializable {
             albumes.getItems().add(album.getNombre());
         }
         
-        
+        */
        
         
         angry.setOnMouseClicked(e->{
@@ -163,7 +169,15 @@ public class ImportarFotoController implements Initializable {
             reaccion=reaccion.like;
         }
         );;
-    }    
+    }
+    
+    public void initAtribut(ObservableList<Album> albumes){
+        this.albume=albumes;
+        for(Album album : albume){
+            this.albumes.getItems().add(album.getNombre());
+        }
+        
+    }
     
     
     
