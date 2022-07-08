@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -19,44 +20,52 @@
          <content>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="601.0" style="-fx-background-color: white;">
                <children>
-                  <Text fx:id="txtInicio" fill="#00ffe1" layoutX="41.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IMPORTAR FOTO">
+                  <ImageView fitHeight="372.0" fitWidth="600.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@Imagenes/artistic-pixel-art-hd-wallpaper-preview.jpg" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="txtInicio" layoutX="41.0" layoutY="37.0" stroke="#fcfcfc" strokeType="OUTSIDE" strokeWidth="2.0" text="IMPORTAR FOTO">
                      <font>
                         <Font name="Gill Sans Ultra Bold Condensed" size="32.0" />
                      </font></Text>
                   <TextField fx:id="path" layoutX="34.0" layoutY="71.0" prefHeight="25.0" prefWidth="250.0" />
-                  <Button fx:id="botonBuscar" layoutX="295.0" layoutY="58.0" mnemonicParsing="false" onAction="#buscarFoto" prefHeight="42.0" prefWidth="51.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 40;" text="🔎">
+                  <Button fx:id="botonBuscar" layoutX="295.0" layoutY="58.0" mnemonicParsing="false" onAction="#buscarFoto" prefHeight="42.0" prefWidth="51.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 40;" text="🔎">
                      <font>
                         <Font size="21.0" />
                      </font></Button>
                   <Text layoutX="237.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informacion de la foto" />
-                  <TextField fx:id="txtDescripcion" layoutX="122.0" layoutY="149.0" prefHeight="25.0" prefWidth="398.0" />
-                  <TextField fx:id="txtLugar" layoutX="122.0" layoutY="195.0" prefHeight="25.0" prefWidth="398.0" />
-                  <Text fx:id="tDescripcion" layoutX="31.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripcion:">
+                  <TextField fx:id="txtDescripcion" layoutX="179.0" layoutY="146.0" prefHeight="25.0" prefWidth="398.0" />
+                  <TextField fx:id="txtLugar" layoutX="179.0" layoutY="194.0" prefHeight="25.0" prefWidth="398.0" />
+                  <Text fx:id="tDescripcion" layoutX="31.0" layoutY="167.0" stroke="#feffff" strokeType="OUTSIDE" strokeWidth="2.0" text="Descripcion:">
                      <font>
-                        <Font name="Garamond" size="18.0" />
+                        <Font name="Garamond" size="28.0" />
                      </font></Text>
-                  <Text fx:id="tLugar" layoutX="75.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lugar:">
+                  <Text fx:id="tLugar" layoutX="100.0" layoutY="214.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="2.0" text="Lugar:">
                      <font>
-                        <Font name="Garamond" size="18.0" />
+                        <Font name="Garamond" size="28.0" />
                      </font></Text>
-                  <DatePicker fx:id="fecha" layoutX="122.0" layoutY="236.0" />
-                  <Text fx:id="tFecha" layoutX="74.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha:">
+                  <DatePicker fx:id="fecha" layoutX="179.0" layoutY="236.0" />
+                  <Text fx:id="tFecha" layoutX="98.0" layoutY="257.0" stroke="#f6fcfc" strokeType="OUTSIDE" strokeWidth="2.0" text="Fecha:">
                      <font>
-                        <Font name="Garamond" size="18.0" />
+                        <Font name="Garamond" size="29.0" />
                      </font></Text>
-                  <TextField fx:id="txtPersonas" layoutX="122.0" layoutY="274.0" />
-                  <Text fx:id="tPersona" layoutX="47.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personas:">
+                  <TextField fx:id="txtPersonas" layoutX="179.0" layoutY="272.0" />
+                  <Text fx:id="tPersona" layoutX="73.0" layoutY="292.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="2.0" text="Personas:">
                      <font>
-                        <Font name="Garamond" size="18.0" />
+                        <Font name="Garamond" size="26.0" />
                      </font></Text>
-                  <Text layoutX="284.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mas de una persona separar con &quot;,&quot;" />
+                  <Text layoutX="387.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mas de una persona separar con &quot;,&quot;" />
                   <Button fx:id="importar" layoutX="494.0" layoutY="334.0" mnemonicParsing="false" onAction="#importaFoto" style="-fx-background-color: white; -fx-border-color: gray;" text="Importar" />
                   <ComboBox fx:id="albumes" layoutX="331.0" layoutY="334.0" prefWidth="150.0" promptText="seleccione Album" style="-fx-background-color: white; -fx-border-color: gray;">
                      <padding>
                         <Insets left="10.0" />
                      </padding>
                   </ComboBox>
-                  <Text fx:id="tImport" layoutX="383.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;--- importe una foto" />
+                  <Text fx:id="tImport" layoutX="383.0" layoutY="88.0" stroke="#fafcfb" strokeType="OUTSIDE" strokeWidth="2.0" text="&lt;--- importe una foto">
+                     <font>
+                        <Font name="Bernard MT Condensed" size="23.0" />
+                     </font></Text>
                   <Text fx:id="tFotof" layoutX="320.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                </children>
             </Pane>
@@ -66,17 +75,25 @@
          <content>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
-                  <ImageView fitHeight="79.0" fitWidth="325.0" layoutX="14.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="372.0" fitWidth="600.0" layoutX="1.0" pickOnBounds="true">
                      <image>
-                        <Image url="@Imagenes/3GG3V3JZMZDLPOPXJUVSVRXNVM.png" />
+                        <Image url="@Imagenes/fondo-importarFotovista1.png" />
                      </image>
                   </ImageView>
-                  <Text fill="#08ecff" layoutX="39.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COMENTARIO">
+                  <ImageView fitHeight="79.0" fitWidth="325.0" layoutX="14.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagenes/fondo-importarFotovista2.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="39.0" layoutY="47.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="2.0" text="COMENTARIO">
                      <font>
                         <Font name="Gill Sans Ultra Bold Condensed" size="25.0" />
                      </font></Text>
-                  <TextField fx:id="comentario" layoutX="39.0" layoutY="65.0" prefHeight="25.0" prefWidth="404.0" style="-fx-border-color: black;" />
-                  <Text fill="#00fcff" layoutX="39.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HASHTAGS">
+                  <TextField fx:id="comentario" layoutX="39.0" layoutY="65.0" prefHeight="25.0" prefWidth="404.0" style="-fx-border-color: black;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                  <Text fill="#000303" layoutX="39.0" layoutY="146.0" stroke="#fdffff" strokeType="OUTSIDE" strokeWidth="2.0" text="HASHTAGS">
                      <font>
                         <Font name="Gill Sans Ultra Bold Condensed" size="25.0" />
                      </font></Text>
@@ -88,12 +105,12 @@
                   <Pane fx:id="sorprende" layoutX="197.0" layoutY="295.0" prefHeight="40.0" prefWidth="40.0" />
                   <Pane fx:id="sad" layoutX="241.0" layoutY="295.0" prefHeight="41.0" prefWidth="39.0" />
                   <Pane fx:id="angry" layoutX="285.0" layoutY="296.0" prefHeight="40.0" prefWidth="41.0" />
-                  <Text fill="#00f7ff" layoutX="269.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CAMARA">
+                  <Text layoutX="269.0" layoutY="146.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="2.0" text="CAMARA">
                      <font>
                         <Font name="Gill Sans Ultra Bold Condensed" size="25.0" />
                      </font></Text>
                   <TextField fx:id="camara" layoutX="263.0" layoutY="167.0" style="-fx-border-color: black;" />
-                  <Text fill="#00eeff" layoutX="39.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reaccionar">
+                  <Text fill="WHITE" layoutX="39.0" layoutY="271.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" text="Reaccionar">
                      <font>
                         <Font name="Gill Sans Ultra Bold Condensed" size="25.0" />
                      </font></Text>

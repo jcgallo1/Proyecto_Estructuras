@@ -10,7 +10,6 @@ import static Clases.Album.guardarAlbumRegistro;
 import Clases.Imagen;
 import Clases.Usuario;
 import TDAS.ArrayList;
-import TDAS.CircularLinkedList;
 import TDAS.CircularNode;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
-import static javafx.application.Application.launch;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,9 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
@@ -51,11 +47,10 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author User
+ * @author Grupo_1
  */
 public class PrimaryController implements Initializable {
 
-    private String imagenclic;
     @FXML
     private BorderPane panel;
     @FXML
@@ -77,6 +72,7 @@ public class PrimaryController implements Initializable {
     private Text albumAbierto;
     @FXML
     private TilePane imagenesPane;
+    
     private CircularNode<Imagen> Imagen;
     @FXML
     private Button botonSiguiente;
@@ -108,6 +104,8 @@ public class PrimaryController implements Initializable {
     private ComboBox<String> busquedasBox;
     @FXML
     private Button Salir;
+    @FXML
+    private ImageView ImagenShow;
     /**
      * Initializes the controller class.
      * @param url
@@ -238,13 +236,14 @@ public class PrimaryController implements Initializable {
             controlador.initAtribut(albumes);
             Scene  scene = new Scene(root);
             Stage stage= new Stage();
+            stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
             Album nuevoA= new Album(controlador.getTxtNuevoAlbum().getText(),controlador.getDescripcionA().getText(),true,user.getNick());
            
-            System.out.println(nuevoA.getNombre());
-            if(nuevoA != null){
+            if(!nuevoA.getNombre().equals("")){
+                System.out.println(nuevoA.getNombre());
                 if(!this.albumes.contains(nuevoA)){
                     guardarAlbumRegistro(nuevoA);
                     this.albumes.add(nuevoA);
@@ -294,6 +293,7 @@ public class PrimaryController implements Initializable {
             }
             Scene  scene = new Scene(root);
             Stage stage= new Stage();
+            stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
@@ -329,6 +329,7 @@ public class PrimaryController implements Initializable {
         
     }
     
+    //elimna los objetos serializados del album, elimina el album de la lista de albumnes y guarda todo denuevo
     @FXML
     public void eliminarAlbum(ActionEvent event){
         String nombreAlbum=listViewAlbum.getSelectionModel().getSelectedItem();
@@ -360,7 +361,7 @@ public class PrimaryController implements Initializable {
         
     }
     
-    
+    //Revisa los albumnes serializados y los agrega a la lista de albumnes
     public void cargarAlbumRegistro(){
         albumes.clear();
         ObjectInputStream in=null;
@@ -385,7 +386,7 @@ public class PrimaryController implements Initializable {
         
     }
     
-    //el programa se pone en modo busqueda
+    //Busquedas en el album
     @FXML
     public void busquedaAlbum(){
         
@@ -502,7 +503,7 @@ public class PrimaryController implements Initializable {
         }
         
     }
-    
+    //convierte la fecha tipo int a un mes del año
     public static String ParseFecha(int fecha){
         String[] mes={"","enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"};
         return mes[fecha];
@@ -518,6 +519,7 @@ public class PrimaryController implements Initializable {
     //permite que los nodos se pueda navegar entre ellos usando circularlinkedlist
     public void cargarFotosPane(String nombreAlbum){
         imagenesPane.getChildren().clear();
+        imagenesPane.setDisable(false);
         for (Album album : albumes) {
             if (album.getNombre().equals(nombreAlbum)) {
                 if (!album.getFotos().isEmpty()) {
@@ -531,22 +533,23 @@ public class PrimaryController implements Initializable {
                             BotonEliminar.setVisible(true);
                             nodo.setOnMouseClicked(a -> {
                                 imagenesPane.getChildren().clear();
+                                imagenesPane.setDisable(true);
                                 botonSiguiente.setVisible(true);
+                                ImagenShow.setVisible(true);
                                 botonAtras.setVisible(true);
                                 regresar.setVisible(true);
                                 botonEditar.setVisible(false);
                                 BotonEliminar.setVisible(false);
                                 desactivarEntornoFoto(false);
-                                Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
-                                ImageView nodoImagenGrande = new ImageView(imageGrande);
-                                nodoImagenGrande.setFitHeight(368);
-                                nodoImagenGrande.setFitWidth(349);
-                                imagenesPane.getChildren().add(nodoImagenGrande);
+                                Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString(),441,500,false,true);
+                                
+                                ImagenShow.setImage(imageGrande);
+                               
                             });
                             
                         });  
-                        nodo.setFitHeight(155);
-                        nodo.setFitWidth(95);
+                        nodo.setFitHeight(180);
+                        nodo.setFitWidth(100);
                         imagenesPane.getChildren().add(nodo);
                         
                         
@@ -555,7 +558,7 @@ public class PrimaryController implements Initializable {
             }
         }
         imagenesPane.setOrientation(Orientation.HORIZONTAL);
-        imagenesPane.setHgap(4);
+        imagenesPane.setHgap(6);
         imagenesPane.setVgap(4);
     }
     
@@ -571,6 +574,7 @@ public class PrimaryController implements Initializable {
     @FXML
     public void regresar(ActionEvent event){
         abriAlbum();
+        ImagenShow.setVisible(false);
         regresar.setVisible(false);
         menubar.setVisible(true);
         desactivarEntornoFoto(true);
@@ -586,23 +590,16 @@ public class PrimaryController implements Initializable {
     public void siguienteFoto(ActionEvent event){
         imagenesPane.getChildren().clear();
         Imagen = Imagen.getNextNode();
-        Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
-        ImageView nodoImagenGrande = new ImageView(imageGrande);
-        nodoImagenGrande.setFitHeight(368);
-        nodoImagenGrande.setFitWidth(349);
-        
-        imagenesPane.getChildren().add(nodoImagenGrande);
+        Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString(), 441, 500, false, true);
+        ImagenShow.setImage(imageGrande);
     }
     //usando el circular node para mover la visualizacion de las fotos al anterior nodo
     @FXML
     public void anteriorFoto(ActionEvent event){
         imagenesPane.getChildren().clear();
         Imagen=Imagen.getPrevNode();
-        Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString());
-        ImageView nodoImagenGrande = new ImageView(imageGrande);
-        nodoImagenGrande.setFitHeight(368);
-        nodoImagenGrande.setFitWidth(349);
-        imagenesPane.getChildren().add(nodoImagenGrande);
+        Image imageGrande = new Image(Imagen.getContent().getFoto().toURI().toString(),441,500,false,true);
+        ImagenShow.setImage(imageGrande);
     }
     //elimina las fotos del album y su archivo serializado
     @FXML
@@ -643,6 +640,7 @@ public class PrimaryController implements Initializable {
             
             Scene  scene = new Scene(root);
             Stage stage= new Stage();
+            stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
@@ -704,7 +702,7 @@ public class PrimaryController implements Initializable {
         
         
     }
-    
+    //Crea una escena de ImportarFotoCOntroller y abstrae los datos para importar la foto en el album seleccionado
     @FXML
     public void importarFoto(){
         try {
@@ -714,6 +712,7 @@ public class PrimaryController implements Initializable {
             controlador.initAtribut(albumes);
             Scene  scene = new Scene(root);
             Stage stage= new Stage();
+            stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
@@ -749,9 +748,6 @@ public class PrimaryController implements Initializable {
    
     public ObservableList<Album> getAlbumes(){
         return this.albumes;
-    }
-    public String getImagenclic() {
-        return this.imagenclic;
     }
     
 }

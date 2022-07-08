@@ -13,10 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -25,7 +22,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author User
+ * @author Grupo_1
  */
 public class IniciarSesionController implements Initializable {
 
@@ -48,7 +45,7 @@ public class IniciarSesionController implements Initializable {
         user=null;
     }    
     
-    
+    //Crear el usuario modifica la escena para que sepa que el usario va a crear
     @FXML
     public void crearUser(){
         titulotx.setText("REGISTRAR");
@@ -57,7 +54,7 @@ public class IniciarSesionController implements Initializable {
         Usuario user=new Usuario(campoUser.getText(),campoContra.getText());
         
     }
-    
+    // Inicia sesion del usuario y cierra la escena si el usuario existe
     @FXML
     public void iniciarSesion() throws IOException{
         Usuario user=new Usuario(campoUser.getText(),campoContra.getText());
@@ -80,6 +77,9 @@ public class IniciarSesionController implements Initializable {
     public Usuario getUser() {
         return user;
     }
+    
+    //funcion para cerrar todo el programa
+    @FXML
     public void cerrarSesion(){
         Platform.exit();
         System.exit(0);

@@ -9,7 +9,6 @@ import Clases.Album;
 import Clases.Imagen;
 import Clases.reacciones;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -18,10 +17,7 @@ import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -37,7 +33,7 @@ import javafx.stage.Window;
 /**
  * FXML Controller class
  *
- * @author User
+ * @author Grupo_1
  */
 public class ImportarFotoController implements Initializable {
 
@@ -125,20 +121,7 @@ public class ImportarFotoController implements Initializable {
         path.setEditable(false);
         tFotof.setVisible(false);
         
-        /*
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("primary.fxml"));
-        try {
-            Parent root= loader.load();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        PrimaryController controlador= loader.getController();
-        for(Album album : controlador.getAlbumes()){
-            albumes.getItems().add(album.getNombre());
-        }
         
-        */
-       
         
         angry.setOnMouseClicked(e->{
             reaccion=reaccion.angry;
@@ -180,7 +163,7 @@ public class ImportarFotoController implements Initializable {
     }
     
     
-    
+    //hace que el usuario busque una foto en su dispositivo y la guarda en el path
     @FXML
     public void buscarFoto(ActionEvent event){
         FileChooser fileChooser = new FileChooser(); 
@@ -189,6 +172,7 @@ public class ImportarFotoController implements Initializable {
         this.path.setText(file.getName());
     }
     
+    //Importa la foto y revisa que no exista algun error
     @FXML
     public void importaFoto(){
         ChronoLocalDate dt= LocalDate.from(ZonedDateTime.now());

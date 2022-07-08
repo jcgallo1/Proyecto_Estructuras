@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author User
+ * @author Grupo_1
  */
 public class AñadirAlbumDialogController implements Initializable {
 
@@ -104,8 +104,8 @@ public class AñadirAlbumDialogController implements Initializable {
     //CIERRA LA VENTANA AÑADIR ALBUM
     @FXML
     public void cerrar(ActionEvent event){
-        
-        
+        TxtNuevoAlbum.setText("");
+        descripcionA.setText("");
         Stage stage=(Stage) this.crearAlbum.getScene().getWindow();
         stage.close();
     }

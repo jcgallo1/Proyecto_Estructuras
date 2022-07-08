@@ -11,6 +11,8 @@ import java.io.Serializable;
  *
  * @author User
  */
+
+
 public enum reacciones implements Serializable {
     like, love,appreciation, haha, wow, sad, angry;
 }

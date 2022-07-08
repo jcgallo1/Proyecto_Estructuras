@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
@@ -16,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="panel" prefHeight="565.0" prefWidth="911.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.PrimaryController">
+<BorderPane fx:id="panel" prefHeight="585.0" prefWidth="927.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo1estructuras.PrimaryController">
    <top>
       <MenuBar fx:id="menubar" prefHeight="20.0" prefWidth="598.0" BorderPane.alignment="CENTER">
         <menus>
@@ -39,11 +41,11 @@
       </MenuBar>
    </top>
    <right>
-      <Pane prefHeight="482.0" prefWidth="122.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="500.0" prefWidth="155.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="botonEditar" layoutX="39.0" layoutY="292.0" mnemonicParsing="false" onAction="#editar" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="Editar" />
-            <Button fx:id="BotonEliminar" layoutX="32.0" layoutY="241.0" mnemonicParsing="false" onAction="#EliminarFoto" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="Eliminar" />
-            <Button fx:id="buscarBoton" layoutX="34.0" layoutY="75.0" mnemonicParsing="false" onAction="#busquedaAlbum" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="buscar" />
+            <Button fx:id="botonEditar" layoutX="39.0" layoutY="292.0" mnemonicParsing="false" onAction="#editar" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" text="Editar" />
+            <Button fx:id="BotonEliminar" layoutX="32.0" layoutY="241.0" mnemonicParsing="false" onAction="#EliminarFoto" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" text="Eliminar" />
+            <Button fx:id="buscarBoton" contentDisplay="CENTER" layoutX="34.0" layoutY="75.0" mnemonicParsing="false" onAction="#busquedaAlbum" prefHeight="43.0" prefWidth="69.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" text="buscar" />
             <ComboBox fx:id="busquedasBox" layoutX="7.0" layoutY="14.0" prefHeight="13.0" prefWidth="105.0" />
          </children>
       </Pane>
@@ -51,11 +53,15 @@
    <left>
       <VBox prefHeight="482.0" prefWidth="155.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="listViewAlbum" prefHeight="360.0" prefWidth="155.0" style="-fx-background-color: pinck;" />
-            <Pane prefHeight="138.0" prefWidth="124.0">
+            <Pane prefHeight="364.0" prefWidth="173.0">
                <children>
-                  <Button fx:id="botonAbirA" layoutX="35.0" layoutY="46.0" mnemonicParsing="false" onAction="#editarAlbum" prefHeight="25.0" prefWidth="86.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="editar" />
-                  <Button fx:id="botonEliminarA" layoutX="37.0" layoutY="91.0" mnemonicParsing="false" onAction="#eliminarAlbum" prefHeight="25.0" prefWidth="83.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="Eliminar" />
+                  <ListView fx:id="listViewAlbum" layoutX="9.0" layoutY="15.0" prefHeight="334.0" prefWidth="137.0" style="-fx-background-color: white;" />
+               </children>
+            </Pane>
+            <Pane prefHeight="138.0" prefWidth="124.0" style="-fx-background-color: lighGray;">
+               <children>
+                  <Button fx:id="botonAbirA" layoutX="36.0" layoutY="38.0" mnemonicParsing="false" onAction="#editarAlbum" prefHeight="25.0" prefWidth="86.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" text="editar" />
+                  <Button fx:id="botonEliminarA" layoutX="37.0" layoutY="91.0" mnemonicParsing="false" onAction="#eliminarAlbum" prefHeight="25.0" prefWidth="83.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" text="Eliminar" />
                </children>
             </Pane>
          </children>
@@ -64,30 +70,43 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="panedeFoto" prefHeight="465.0" prefWidth="635.0">
+            <Pane prefHeight="43.0" prefWidth="632.0" style="-fx-background-color: white;">
                <children>
-                  <Text fx:id="albumAbierto" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="389.236328125">
+                  <Text fx:id="albumAbierto" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="389.236328125">
                      <font>
                         <Font name="Berlin Sans FB" size="32.0" />
                      </font></Text>
-                  <ScrollPane fx:id="scrollImagen" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="633.0">
+                  <TextField fx:id="buscar" layoutX="389.0" layoutY="6.0" prefHeight="31.0" prefWidth="224.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="panedeFoto" prefHeight="431.0" prefWidth="602.0">
+               <children>
+                  <ScrollPane fx:id="scrollImagen" layoutX="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="429.0" prefWidth="607.0">
                      <content>
-                        <TilePane fx:id="imagenesPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+                        <TilePane fx:id="imagenesPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="603.0" />
                      </content>
                   </ScrollPane>
-                  <TextField fx:id="buscar" layoutX="389.0" layoutY="9.0" prefHeight="31.0" prefWidth="224.0" />
+                  <Pane disable="true" layoutX="-6.0" prefHeight="429.0" prefWidth="618.0">
+                     <children>
+                        <ImageView fx:id="ImagenShow" fitHeight="418.0" fitWidth="434.0" layoutX="42.0" layoutY="6.0" nodeOrientation="INHERIT" pickOnBounds="true" translateX="50.0">
+                           <rotationAxis>
+                              <Point3D />
+                           </rotationAxis>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
             </Pane>
          </children>
       </VBox>
    </center>
    <bottom>
-      <Pane prefHeight="58.0" prefWidth="696.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="58.0" prefWidth="950.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="botonSiguiente" layoutX="622.0" layoutY="12.0" mnemonicParsing="false" onAction="#siguienteFoto" prefHeight="35.0" prefWidth="71.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="siguiente" />
-            <Button fx:id="botonAtras" layoutX="543.0" layoutY="12.0" mnemonicParsing="false" onAction="#anteriorFoto" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 25;" text="atras" />
-            <Button fx:id="regresar" layoutX="138.0" layoutY="8.0" mnemonicParsing="false" onAction="#regresar" prefHeight="34.0" prefWidth="68.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 25;" text="regresar" />
-            <Button fx:id="Salir" layoutX="811.0" layoutY="8.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="34.0" prefWidth="68.0" style="-fx-background-color: white; -fx-border-color: red; -fx-border-radius: 25;" text="cerrar" textFill="RED">
+            <Button fx:id="botonSiguiente" layoutX="622.0" layoutY="12.0" mnemonicParsing="false" onAction="#siguienteFoto" prefHeight="35.0" prefWidth="71.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" text="siguiente" />
+            <Button fx:id="botonAtras" layoutX="543.0" layoutY="12.0" mnemonicParsing="false" onAction="#anteriorFoto" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" text="atras" />
+            <Button fx:id="regresar" layoutX="138.0" layoutY="8.0" mnemonicParsing="false" onAction="#regresar" prefHeight="34.0" prefWidth="68.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" text="regresar" />
+            <Button fx:id="Salir" layoutX="811.0" layoutY="8.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="34.0" prefWidth="68.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: red; -fx-border-radius: 25;" text="cerrar" textFill="RED">
                <font>
                   <Font size="13.0" />
                </font>

@@ -5,7 +5,6 @@
  */
 package Clases;
 
-import Clases.Imagen;
 import TDAS.CircularLinkedList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -26,7 +24,7 @@ public class Album implements Serializable{
     CircularLinkedList<Imagen> fotos;
     
     
-    //crea un album localmente en la carpeta picspol en el disco local c;
+    //Crea albumnes 
     
     public Album(String nombre, String descripcion,Boolean valor,String user) {
         this.nombre = nombre;
@@ -48,6 +46,7 @@ public class Album implements Serializable{
         
     }
     
+    //agrega las fotos a mi album accediendo a la circularLinkedList
     public boolean agregarFotos(Imagen imagen) {
         if (imagen == null) {
             return false;
@@ -63,7 +62,7 @@ public class Album implements Serializable{
     }
     
    
-    
+    //serializa los datos de los albumnes y los guarda
     public static void guardarAlbumRegistro(Album album){
         FileOutputStream fout = null;
         try {

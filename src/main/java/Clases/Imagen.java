@@ -32,7 +32,9 @@ public class Imagen implements Serializable{
     private String hashtags;
     private String comentario;
     private String User;
-    //agregue un nuevo atributo tipo file que son las Imagen jpg para asociarlas luego con la descripcion
+    
+    
+    //Crear imagen Constructor
     public Imagen(File foto,String descripcion, String lugar, 
                 LocalDate fecha, 
                 String persona, 
@@ -48,46 +50,14 @@ public class Imagen implements Serializable{
         this.hashtags=hashtag;
         this.comentario=comentario;
         this.User=user;
-        guardarFotoRegistro(this,user);
         
         
     }
 
     
-    
-    
-    public static void guardarFotoRegistro(Imagen imagen, String user){
-        FileOutputStream fout = null;
-        try {
-            fout = new FileOutputStream("src/main/resources/Albunes/"+user+"/"+imagen.getNombreAlbum()+"/"+imagen.getNombreFoto()+".ser");
-            ObjectOutputStream out = new ObjectOutputStream(fout);
-            out.writeObject(imagen);
-            out.flush();
-
-        } catch (FileNotFoundException ex) {
-            System.err.println("No se encuentra archivo");
-        } catch (IOException ex) {
-           System.err.println(ex.getMessage());
-        } finally {
-            try {
-                fout.close();
-            } catch (IOException ex) {
-                 System.err.println("Error al cerrar archivo");
-            }
-        }
-    }
-
     public File getFoto() {
         return foto;
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
     public reacciones getReaccion() {
         return reaccion;
@@ -121,12 +91,10 @@ public class Imagen implements Serializable{
         this.comentario = comentario;
     }
     
-    
-    
-    
     public String getNombreFoto(){
         return this.foto.getName();
     }
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -159,11 +127,6 @@ public class Imagen implements Serializable{
         this.personas = personas;
     }
     
-
-    public void añadirPersona(String persona){
-        this.personas+=","+persona;
-    }
-
     public String getNombreAlbum() {
         return nombreAlbum;
     }

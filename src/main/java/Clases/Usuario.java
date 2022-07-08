@@ -27,26 +27,8 @@ public class Usuario implements Serializable{
         this.Nick = Nick;
         this.contraseña = contraseña;
     }
-
-    public String getNick() {
-        return Nick;
-    }
-
-    public void setNick(String Nick) {
-        this.Nick = Nick;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
     
-    
-    
-    
+    //guarda la informacion del usario
     public static void guardarUsuario(Usuario usuario){
         FileOutputStream fout = null;
         try {
@@ -67,6 +49,8 @@ public class Usuario implements Serializable{
             }
         }
     }
+    
+    //encuentra el objeto y lo deserealiza si existe
     public static Boolean cargarUsuario(Usuario init){
         ObjectInputStream in=null;
         File folder=new File("src/main/resources/Albunes/");
@@ -94,5 +78,21 @@ public class Usuario implements Serializable{
         return false;
         
     }
+    public String getNick() {
+        return Nick;
+    }
+
+    public void setNick(String Nick) {
+        this.Nick = Nick;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+    
     
 }
