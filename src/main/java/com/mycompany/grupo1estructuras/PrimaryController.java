@@ -139,7 +139,7 @@ public class PrimaryController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
+        // Aqui se crea las carpetas de los usuarios
         String ruta2 = "src/main/resources/Albunes/"+user.getNick();
         File D2 = new File(ruta2);
         boolean D3 = D2.mkdir();
@@ -152,6 +152,7 @@ public class PrimaryController implements Initializable {
         this.albumes = FXCollections.observableArrayList();
         cargarAlbumRegistro();
         cargarAlbum();
+        
         albumAbierto.setText("Crea/abre un album");
         botonEditar.setVisible(false);
         BotonEliminar.setVisible(false);
@@ -160,8 +161,8 @@ public class PrimaryController implements Initializable {
         buscarBoton.setVisible(false);
         buscar.setVisible(false);
         busquedasBox.setVisible(false);
+        
         buscarAlbum.setOnAction(e -> {
-            
             if(listViewAlbum.getSelectionModel().getSelectedItem()!=null){
                 imagenesPane.getChildren().clear();
                 regresar.setVisible(true);
@@ -177,6 +178,7 @@ public class PrimaryController implements Initializable {
             
             
         });
+        
         buscarGlobal.setOnAction(a -> {
             busquedasBox.setVisible(true);
             imagenesPane.getChildren().clear();
@@ -396,7 +398,6 @@ public class PrimaryController implements Initializable {
         String choiBus=busquedasBox.getValue();
         
         if (busqueda.equals("buscarAlbum")) {
-
             for (Album album : albumes) {
                 if (album.getNombre().equals(albumAbierto.getText())) {
                     albumselec = album;
@@ -465,6 +466,7 @@ public class PrimaryController implements Initializable {
             
             
         }
+        
         if(busqueda.equals("buscarGlobal")){
             
             for(Album album: albumes){

@@ -37,12 +37,15 @@ public class IniciarSesionController implements Initializable {
     @FXML
     private Button botonRegistrar;
     private Usuario user;
+  
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         user=null;
+        campoUser.setText(" ");
+        campoContra.setText(" ");
     }    
     
     //Crear el usuario modifica la escena para que sepa que el usario va a crear
@@ -57,6 +60,7 @@ public class IniciarSesionController implements Initializable {
     // Inicia sesion del usuario y cierra la escena si el usuario existe
     @FXML
     public void iniciarSesion() throws IOException{
+        
         Usuario user=new Usuario(campoUser.getText(),campoContra.getText());
         Boolean iniciar=cargarUsuario(user);
         if(iniciar){

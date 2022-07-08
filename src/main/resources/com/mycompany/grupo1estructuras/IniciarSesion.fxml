@@ -16,7 +16,7 @@
             <Image url="@Imagenes/fondo.gif" />
          </image>
       </ImageView>
-      <Text fx:id="titulotx" layoutX="39.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar sesion">
+      <Text fx:id="titulotx" layoutX="39.0" layoutY="129.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="3.0" text="Iniciar sesion">
          <font>
             <Font name="OCR A Extended" size="30.0" />
          </font></Text>

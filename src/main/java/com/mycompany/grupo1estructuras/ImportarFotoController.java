@@ -120,7 +120,7 @@ public class ImportarFotoController implements Initializable {
         tImport.setVisible(false);
         path.setEditable(false);
         tFotof.setVisible(false);
-        
+        reaccion=reaccion.like;
         
         
         angry.setOnMouseClicked(e->{
